@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="com.florist_NetFlorist_jar_0.0.1-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>model.Tblproduct</class>
+    <class>model.Tbluser</class>
+    <class>com.florist.NetFlorist.model.User</class>
+    <class>com.florist.NetFlorist.model.Customer</class>
+    <class>com.florist.NetFlorist.model.Product</class>
+    <class>com.florist.NetFlorist.model.Category</class>
+    <class>com.florist.NetFlorist.model.Delivary</class>
+    <class>com.florist.NetFlorist.model.Delivarytpes</class>
+    <class>com.florist.NetFlorist.model.Provinces</class>
+    <class>com.florist.NetFlorist.model.Banknames</class>
+    <class>com.florist.NetFlorist.model.Bank</class>
+    <class>com.florist.NetFlorist.model.Orderstatus</class>
+    <class>com.florist.NetFlorist.model.Orderinformation</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/NetFloristDB?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="kaybee"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="2417"/>
+    </properties>
+  </persistence-unit>
+</persistence>

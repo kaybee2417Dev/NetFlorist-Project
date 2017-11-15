@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html vlang="en-US" ng-app="NetFloristApp" >
+    <head>
+        <title>NetFlorist Login </title>
+        <script src="./js/angular.min.js"></script>
+        <script type="text/javascript" src="./js/angular-route.min.js"></script>
+	<script src="./js/app.js"></script>
+        <link rel="stylesheet" type="text/css" href="./css/demo.css" />
+        <link rel="stylesheet" type="text/css" href="./css/style3.css" />
+    </head>
+
+    <body ng-controller="LoginController">
+        <div class="container">
+            <div id="container_demo" >
+                <a class="hiddenanchor" id="toregister"></a>
+                <div id="wrapper">
+                    <form class="login"  method="post" autocomplete="on"> 
+                        <h1>Log in</h1> 
+                        
+                        <img src="./css/net.jpg" style="width:150;height:50; " />
+                            <p> 
+                                <label for="username" class="uname" data-icon="u" > Your email or username: </label>
+                                <input id="username" name="username" ng-model="username" required="required" type="text" placeholder="myusername or mymail@mail.com"/>
+                            </p>
+                                <p> 
+                                <label for="password" class="passWrd" data-icon="p" > Enter Your Password: </label>
+                                <input id="password" name="password" ng-model="password" required="required" type="password" placeholder="Enter password"/>
+                            </p>
+                                <p class="keeplogin"> 
+									<input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" /> 
+									<label for="loginkeeping">Keep me logged in</label>
+								</p>
+                                <p class="login button"> 
+                                    <input type="submit" ng-click="login()" value="Login" /> 
+								</p>
+                                <p class="change_link">
+                                    
+									
+									Not a member yet ?
+									<a href="register.html" class="register">Join us</a>
+                                                                        
+                                                                        <a href="./templates/home.html" class="register">Home</a>
+								</p>
+                    </form> 
+                </div>
+            </div>   
+       
+        </div>
+    </body>
+</html>
+

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html ng-app="NetFloristApp">
+    <head>
+        <title>Admin Panel</title>
+        <script src="./js/angular.min.js"></script>
+        <script type="text/javascript" src="./js/angular-route.min.js"></script>
+	<script src="./js/app.js"></script>
+        <link rel="stylesheet" type="text/css" href="./css/demo.css" />
+        <link rel="stylesheet" type="text/css" href="./css/menus.css" />
+   
+         <link rel="stylesheet" type="text/css" href="./css/tables.css" />
+
+    </head>
+
+    <body ng-controller="OrderController">
+    
+        <div >
+  
+            <ul>
+               <li><a href="#home">Admin Panel</a></li>
+                <li><a href="./adminHomePage.html">Add Home </a></li>
+               <li><a href="./addProduct.html">Add Product</a></li>
+               <li><a href="./updateProduct.html">Update Product</a></li>
+                <li><a href="./addCategory.html">Add Category</a></li>
+               <li><a href="./registerAdmin.html">Add Administrator</a></li>
+              
+            </ul>
+  
+          <table id="tbl">
+               <tr>
+                   <th>Order ID</th>
+                   <th>Order Number</th>
+                   <th>Order Status</th>
+                   <th>Order Date</th>
+                   <td>Change Order Status</td>
+                  
+               </tr>
+
+               <tr ng-repeat="order in orders" >
+                   <td>{{order.orderID}}</td>
+                    <td>{{order.orderno}}</td>
+                   <td> {{order.orderstatus}}</td>
+                   <td>{{order.date}}</td>
+                  
+                   <td >      
+                       <p> 
+                                    <label for="pCat" class="pCat"  > Product Category:</label>
+                                    <select name="pCat" id="pCat" ng-model="status">
+                                        <option ng-repeat="orderstatu in orderStatus" value="{{orderstatu.name}}">{{orderstatu.name}} </option>
+                                    </select>
+                               </p>  
+                   </td>
+                   <td>
+                       <input type="button" id="update" value="Update Order Status"  class="update" ng-click="updateOrder(order.orderID,status)"/>
+                       <input type="button" id="remove" value="Remove Order"  class="remove" ng-click="removeOrder(order.orderID)"/>
+                       
+                   </td>
+                </tr>
+           </table>
+        </div>
+   </body>
+</html>
+
+    
+

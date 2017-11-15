@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en-US" ng-app="NetFloristApp">
+    <head>
+        <title>Register</title>
+        <script src="./js/angular.min.js"></script>
+        <script type="text/javascript" src="./js/angular-route.min.js"></script>
+	<script src="./js/app.js"></script>
+        <link rel="stylesheet" type="text/css" href="./css/demo.css" />
+        <link rel="stylesheet" type="text/css" href="./css/style3.css" />
+        
+    </head>
+    
+        <body  ng-controller="CustomerController">
+          
+        <div class="container" >
+
+            <header>
+                <h1>Net Florist Registration Form</h1>		
+            </header>
+            			
+                <div id="container_demo" >
+                    <a class="hiddenanchor" id="toregister"></a>
+                    <div id="wrapper">
+                    <form name="register"> 
+                        <img src="./css/net.jpg" style="width:150;height:50; " />
+                            <p> 
+                                <p> 
+                                    <label for="firstName" class="fName" data-icon="u">First Name:</label>
+                                    <input id="firstName" ng-model="fname" name="firstName" required="required" type="text" placeholder="Enter First Name" />
+                                </p>
+                                
+                                <p> 
+                                    <label for="lastName" class="lName" data-icon="u">Last Name:</label>
+                                    <input id="lastName" ng-model="lname" name="lastName" required="required" type="text" placeholder="Enter Last Name" />
+                                </p>
+                                
+                                <p> 
+                                    <label for="emailsignup" class="youmail" data-icon="e" > Email Address:</label>
+                                    <input id="emailsignup" ng-model="email" name="emailsignup" required="required" type="email" placeholder="email@gmail.com"/> 
+                                </p>
+                                
+                                <p> 
+                                    <label for="cellNo" class="yourCell" data-icon="u">cell Number: </label>
+                                    <input id="cellNo" ng-model="mobileNo" name="cellNo" required="required" type="text" placeholder="Enter Mobile No"/>
+                                </p>
+                                
+                                <p> 
+                                    <label for="passwordsignup" class="youpasswd" data-icon="p">Your password: </label>
+                                    <input id="passwordsignup" ng-model="password" name="passwordsignup" required="required" type="password" placeholder="Enter password"/>
+                                </p>
+                                
+                                <p class="signin button"> 
+                                    <input type="submit" ng-click="create('0')" value="Sign up"/> 
+				</p>
+                                <p class="change_link">  
+									Already a member ?
+									<a href="./login.html" class="login"> Go and log in </a>
+                                                                        
+                                                                        <a href="./templates/home.html" class="register">Home</a>
+								</p>
+                            </form>
+                        
+                </div>  
+          </div>
+        </div>
+    </body>
+</html>
