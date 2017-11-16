@@ -28,12 +28,21 @@ public class CustomerController implements Serializable {
     @Autowired
     private CustomerService customerService;
  
+    //========================Find All Customer/Admin======================
     @RequestMapping(method = RequestMethod.GET, value="/view")
     @ResponseBody
     public Object viewAllCustomers()
     {
        
         return customerService.findAllCustomer();
+    }
+    
+    //========================Find Customer/Admin Based on ID======================
+    @RequestMapping(value = "/findUser/{userid}" , method = RequestMethod.GET)
+    @ResponseBody
+    public Customer retrieveById(@PathVariable int userid)
+    {
+        return customerService.findCustomerbyID(userid);
     }
     
     //========================Register Customer/Admin======================

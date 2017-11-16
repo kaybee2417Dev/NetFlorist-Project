@@ -41,18 +41,16 @@ netFloristModule.controller("LoginController",function($scope,$http){
         {
             var username=  $scope.username;
             var password=  $scope.password;
-            
+            var userid = 0;
                    $http.get('http://localhost:9191/login/'+ username + '/'+ password + '').then(function(response){
 		               if(response.data.role === "customer")
                                {
-                                 
-                                  console.log(username);
-                                  window.location.href = './customerHomePage.html';
+                                  userid = response.data.cid;
+                                  window.location.href = './customerHomePage.html?userID=' + userid;
                                }else if(response.data.role === "Admin")
                                {
-                                  
-                                  console.log(username);
-                                  window.location.href = './adminHomePage.html';
+                                  userid = response.data.cid;
+                                  window.location.href = './adminHomePage.html?userID=' + userid;
                                }else{
                                    alert("Verify your crediantials...Try Again!!!");
                                  }
@@ -65,7 +63,16 @@ netFloristModule.controller("LoginController",function($scope,$http){
 netFloristModule.controller("ProductController",function($scope,$http){
    
     $http.defaults.headers.post["Content-Type"] = "application/json";  
+    //######################## Get UserID And User Details #####################################
+    var Data = {};
+    window.location.search.replace(/\?/,'').split('&').map(function(o){ Data[o.split('=')[0]]= o.split('=')[1];});
+    var userID = Data.userID;
+    console.log(userID);
     
+    $http.get('http://localhost:9191/findUser/' + userID + '').then(function (response) {
+        $scope.users = response.data;
+        console.log($scope.users);
+        });
     //######################## Retrieve Products  #####################################
     $http.get('http://localhost:9191/viewproduct').then(function (response) {
         $scope.products = response.data;});
@@ -248,8 +255,16 @@ netFloristModule.controller("CategoryController",function($scope,$http){
 });
 
 netFloristModule.controller("CustomerProductController", function ($scope, $http){
-   $http.defaults.headers.post["Content-Type"] = "application/json";   
-    
+   $http.defaults.headers.post["Content-Type"] = "application/json";  
+   //######################## Get UserID #####################################
+    var Data = {};
+    window.location.search.replace(/\?/,'').split('&').map(function(o){ Data[o.split('=')[0]]= o.split('=')[1];});
+    var userID = Data.userID;
+  
+    $http.get('http://localhost:9191/findUser/' + userID + '').then(function (response) {
+        $scope.users = response.data;
+        console.log($scope.users);
+        });
     //######################## Retrieve Categories #####################################
     $http.get('http://localhost:9191/showAllCat').then(function (response) {
         $scope.categories = response.data;
@@ -480,16 +495,20 @@ netFloristModule.controller("CustomerProductController", function ($scope, $http
                         "street": $scope.street,
                         "city":$scope.city,
                         "province":$scope.provinceName};
-                    console.log(address);
-                    
+                    console.log($scope.date);
+                 
+                   
                     var orderData = {
                         "orderstatus": "New Order",
                         "orderdetails": $scope.cartItems.toString(),
-                        "orderno": orderno
+                        "cID": userID,
+                        "orderamount":$scope.CartAmount,
+                        "orderno": orderno,
+                        "delivarydate":$scope.date
                     };
                     
                    
-                    $http.post('http://localhost:9191/saveOrder',orderData).then( function (response){
+                   $http.post('http://localhost:9191/saveOrder',orderData).then( function (response){
                         console.log(response);
                          $http.post('http://localhost:9191/saveDelivary',address).then(function(response){
                             console.log(response);
@@ -562,10 +581,10 @@ netFloristModule.controller("OrderController",function($scope,$http){
     $http.get('http://localhost:9191/viewOrder').then(function(response){
                 console.log(response);
                 $scope.orders = response.data;
-         });
+        });
          
-          
-         //########################  Retrieve Order Statues #####################################
+       
+        //########################  Retrieve Order Statues #####################################
          
          $http.get('http://localhost:9191/viewOrderStatus').then(function(response){
                 console.log(response);

@@ -65,7 +65,7 @@
         <div >
   
             <ul>
-               <li><a href="#home">Customer Site</a></li>
+               <li><a href="#home">Customer Site: {{users.fname}} {{users.lname}}</a></li>
                <li><a href="./customerOrders.html">Track Order</a></li>
             </ul>
   
@@ -194,10 +194,15 @@
                     </div>
                     <div class="modal-body" style="padding:40px 70px;">
                         
-                         <p> Delivary Information</p>
+                         <p> Delivery Information</p>
+                                
+                               <p>   
+                                    <label for="date" class="date" data-icon="u">Select Delivery Date:</label>
+                                    <input id="date" type="date" value="2017-06-01" ng-model="date"> 
+                               </p> 
                          
                                 <p> 
-                                    <label for="delivaryType" class="delivaryType"> Delivary Type: </label>
+                                    <label for="delivaryType" class="delivaryType"> Delivery Type: </label>
                                     <select name="delivaryType" id="delivaryType" ng-model="delivaryType">
                                         <option ng-repeat="delivaryType in delivariestype" value="{{delivaryType.name}}">{{delivaryType.name}} </option>
                                     </select>
@@ -244,7 +249,10 @@
                      </div>
                     
                     <div class="modal-footer">
-                        
+                        <p class="change_link">  
+                           <a class="login pull-left" data-dismiss="modal"> Continue Shopping </a>
+                         </p>
+                         
                         <button type="submit" id="myBtnBank" class="btn btn-danger btn-default pull-middle" data-dismiss="modal"  ng-click="payement()" >Make Payment</button>
                      </div>
                 </div>
@@ -282,7 +290,10 @@
                     </div>
                     
                     <div class="modal-footer">
-                        
+                        <p class="change_link">  
+                           <a class="login pull-left" data-dismiss="modal"> Continue Shopping </a>
+                        </p>
+                         
                         <button type="submit" class="btn btn-danger btn-default pull-middle" data-dismiss="modal" ng-click="payement()">Make Payment</button>
                      </div>
                 </div>

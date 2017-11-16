@@ -18,7 +18,7 @@
         <div >
   
             <ul>
-               <li><a href="#home">Admin Panel</a></li>
+               <li><a href="#home">Admin Panel{{users.fname}} {{users.lname}}</a></li>
                 <li><a href="./adminHomePage.html">Add Home </a></li>
                <li><a href="./addProduct.html">Add Product</a></li>
                <li><a href="./updateProduct.html">Update Product</a></li>
@@ -32,30 +32,34 @@
                    <th>Order ID</th>
                    <th>Order Number</th>
                    <th>Order Status</th>
-                   <th>Order Date</th>
+                   <th>Order Amount</th>
+                   <th>Order Submitted Date</th>
+                   <th>Order Delivery Date</th>
+                   <th>Order Made By User:</th>
                    <td>Change Order Status</td>
                   
                </tr>
 
                <tr ng-repeat="order in orders" >
                    <td>{{order.orderID}}</td>
-                    <td>{{order.orderno}}</td>
+                   <td>{{order.orderno}}</td>
                    <td> {{order.orderstatus}}</td>
+                   <td>R {{order.orderamount}}</td>
                    <td>{{order.date}}</td>
-                  
+                   <td>{{order.delivarydate}}</td>
+                   <td>{{order.cID}}</td>
                    <td >      
                        <p> 
-                                    <label for="pCat" class="pCat"  > Product Category:</label>
-                                    <select name="pCat" id="pCat" ng-model="status">
-                                        <option ng-repeat="orderstatu in orderStatus" value="{{orderstatu.name}}">{{orderstatu.name}} </option>
-                                    </select>
-                               </p>  
+                            <label for="pCat" class="pCat"  > Product Category:</label>
+                            <select name="pCat" id="pCat" ng-model="status">
+                                <option ng-repeat="orderstatu in orderStatus" value="{{orderstatu.name}}">{{orderstatu.name}} </option>
+                            </select>
+                        </p>  
                    </td>
                    <td>
                        <input type="button" id="update" value="Update Order Status"  class="update" ng-click="updateOrder(order.orderID,status)"/>
                        <input type="button" id="remove" value="Remove Order"  class="remove" ng-click="removeOrder(order.orderID)"/>
-                       
-                   </td>
+                    </td>
                 </tr>
            </table>
         </div>

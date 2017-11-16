@@ -19,6 +19,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 /**
  *
@@ -38,16 +39,23 @@ public class Orderinformation implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "orderID")
     private int orderID;
+    @Column(name = "cID")
+    private int cID;
     @Column(name="orderno")
     private int orderno;
     @Column(name = "orderstatus")
     private String orderstatus;
+    @Column(name = "orderamount")
+    private double orderamount;
     @Column(name = "orderdetails")
     private String orderdetails;
     @Column(name = "orderdate")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date date = new Date();
-       
+    @Column(name = "delivarydate")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date delivarydate;
+    
     public Orderinformation() {
     }
 
@@ -55,12 +63,15 @@ public class Orderinformation implements Serializable {
         this.orderID = orderID;
     }
 
-    public Orderinformation(int orderID, int orderno, String orderstatus, String orderdetails, Date date) {
+    public Orderinformation(int orderID, int cID,Date delivarydate, int orderno, double orderamount, String orderstatus, String orderdetails, Date date) {
         this.orderID = orderID;
+        this.cID = cID;
+        this.orderamount = orderamount;
         this.orderno = orderno;
         this.orderstatus = orderstatus;
         this.orderdetails = orderdetails;
-        this.date = date;  
+        this.date = date; 
+        this.delivarydate = delivarydate;
     }
 
     public int getOrderID() {
@@ -102,6 +113,29 @@ public class Orderinformation implements Serializable {
     public void setOrderno(int orderno) {
         this.orderno = orderno;
     }
-    
-    
+
+    public int getcID() {
+        return cID;
+    }
+
+    public void setcID(int cID) {
+        this.cID = cID;
+    }
+
+    public double getOrderamount() {
+        return orderamount;
+    }
+
+    public void setOrderamount(double orderamount) {
+        this.orderamount = orderamount;
+    }
+
+    public Date getDelivarydate() {
+        return delivarydate;
+    }
+
+    public void setDelivarydate(Date delivarydate) {
+        this.delivarydate = delivarydate;
+    }
+
 }
