@@ -49,8 +49,7 @@ public class Delivary implements Serializable {
     private String surname;
     @Column(name = "email")
     private String email;
-    
-    @Column(name = "contacts")
+   @Column(name = "contacts")
     private String contacts;
 
     @Column(name = "street")

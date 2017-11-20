@@ -67,6 +67,7 @@
             <ul>
                <li><a href="#home">Customer Site: {{users.fname}} {{users.lname}}</a></li>
                <li><a href="./customerOrders.html">Track Order</a></li>
+               <li><a href="./login.html">Log Out</a></li>
             </ul>
   
             <img src="./css/net.jpg" style="width:150;height:50; display: block; margin: 0 auto; " />
@@ -272,7 +273,7 @@
                         
                          <p>MAKE PAYMENTS</p>
                          <p> 
-                                    <label for="dProvince" class="dProvince"  > Province: </label>
+                                    <label for="dProvince" class="dProvince"  > Bank Name: </label>
                                     <select name="dProvince" id="dProvince" ng-model="bankName">
                                         <option ng-repeat="bnames in bankNames" value="{{bnames.name}}">{{bnames.name}} </option>
                                     </select>

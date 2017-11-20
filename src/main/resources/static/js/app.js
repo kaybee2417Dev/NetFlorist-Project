@@ -284,6 +284,7 @@ netFloristModule.controller("CustomerProductController", function ($scope, $http
             $http.get('http://localhost:9191/viewByCategory/' + catName + '').then(function(response){
 		console.log(response);
                 $scope.category = response.data;
+                
                  var i, tabcontent, tablinks;
                 tabcontent = document.getElementsByClassName("tabcontent");
                 for (i = 0; i < tabcontent.length; i++) {
@@ -497,27 +498,46 @@ netFloristModule.controller("CustomerProductController", function ($scope, $http
                         "province":$scope.provinceName};
                     console.log($scope.date);
                  
-                   
+                       
+                   for(var x = 0; x < $scope.cartItems.length; x++){
+                       
+                      var name = $scope.cartItems[x].name;
+                      var quantity = $scope.cartItems[x].quantity;
+                      var product_id = $scope.cartItems[x].product_id;
+                      var price =  $scope.cartItems[x].price;
+                      var category = $scope.cartItems[x].category;
+                      var image= $scope.cartItems[x].image;
+                     // var totalamount = $scope.cartItems[x].totalAmount; 
+           
+                     //console.log(name + quantity + product_id + price + category  + totalamount);
+                      //.log("show data");
                     var orderData = {
                         "orderstatus": "New Order",
-                        "orderdetails": $scope.cartItems.toString(),
+                        "orderamount": $scope.CartAmount ,
                         "cID": userID,
-                        "orderamount":$scope.CartAmount,
                         "orderno": orderno,
-                        "delivarydate":$scope.date
+                        "delivarydate":$scope.date,
+                        "name":name,
+                        "quantity":quantity,
+                        "pid":product_id,
+                        "price":price,
+                        "category":category,
+                        "image":image
                     };
                     
-                   
-                   $http.post('http://localhost:9191/saveOrder',orderData).then( function (response){
+                    console.log(orderData);
+                    console.log("showing data..");
+                    $http.post('http://localhost:9191/saveOrder',orderData).then( function (response){
                         console.log(response);
-                         $http.post('http://localhost:9191/saveDelivary',address).then(function(response){
+                    });
+                }
+                   
+                   $http.post('http://localhost:9191/saveDelivary',address).then(function(response){
                             console.log(response);
                           });
-                    
-                        alert("Order Processed...");
+                         alert("Order Processed...");
                         alert("Order Number: " + orderno);
-                    });
-                 }
+                }
              }else{
                  console.log("Account Not Authorized");
                  alert("Account Not Authorized..Verify your Credict Card Details...");
@@ -629,6 +649,7 @@ netFloristModule.controller("OrderController",function($scope,$http){
                 $http.get('http://localhost:9191/viewbyOrderNo/' + orderNo + '').then(function(response){
                    console.log(response);
                    $scope.ordersIn = response.data;
+                   console.log($scope.ordersIn);
                  });
         
                  

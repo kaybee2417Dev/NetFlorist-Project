@@ -8,6 +8,7 @@ package com.florist.NetFlorist.controller;
 import com.florist.NetFlorist.model.Orderinformation;
 import com.florist.NetFlorist.services.OrderService;
 import java.io.Serializable;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -105,7 +106,7 @@ public class OrderController implements Serializable{
     //======================View Order Status based on a orderNo==========================
     @RequestMapping(value = "/viewbyOrderNo/{orderno}", method = RequestMethod.GET)
     @ResponseBody
-    public Object viewByOrderNo(@PathVariable int orderno)
+    public ArrayList<Orderinformation> viewByOrderNo(@PathVariable int orderno)
     {
         return orderService.findByOrderNo(orderno);
     }

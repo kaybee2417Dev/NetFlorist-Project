@@ -6,6 +6,7 @@
 package com.florist.NetFlorist.repositories;
 
 import com.florist.NetFlorist.model.Orderinformation;
+import java.util.ArrayList;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -31,5 +32,5 @@ public interface OrderRepository extends CrudRepository<Orderinformation, Intege
      public int removeOrder(@Param("orderID") int orderID);
      
     @Query("SELECT o FROM Orderinformation o WHERE o.orderno = :orderno")
-     public Object viewByOrderNo(@Param("orderno") int orderNo);
+     public ArrayList<Orderinformation> viewByOrderNo(@Param("orderno") int orderNo);
 }

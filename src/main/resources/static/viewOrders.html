@@ -11,8 +11,36 @@
    
          <link rel="stylesheet" type="text/css" href="./css/tables.css" />
 
+         
+         <script>
+        function myFunction() {
+          // Declare variables 
+          var input, filter, table, tr, td, i;
+          input = document.getElementById("myInput");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("tbl");
+          tr = table.getElementsByTagName("tr");
+
+          // Loop through all table rows, and hide those who don't match the search query
+          for (i = 0; i < tr.length; i++) 
+          {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+              if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            } 
+          
+        };
+ 
+    };
+      
+</script>
     </head>
 
+    
     <body ng-controller="OrderController">
     
         <div >
@@ -22,15 +50,17 @@
                 <li><a href="./adminHomePage.html">Add Home </a></li>
                <li><a href="./addProduct.html">Add Product</a></li>
                <li><a href="./updateProduct.html">Update Product</a></li>
-                <li><a href="./addCategory.html">Add Category</a></li>
+               <li><a href="./addCategory.html">Add Category</a></li>
                <li><a href="./registerAdmin.html">Add Administrator</a></li>
-              
+               <li><a href="./login.html">Log Out</a></li>
             </ul>
-  
-          <table id="tbl">
+            
+           <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search For Products.." style="width:80%;  padding: 12px 20px;  margin: 8px 0;box-sizing: border-box;}">
+           <table id="tbl">
                <tr>
-                   <th>Order ID</th>
-                   <th>Order Number</th>
+                  <th>Order Number</th>
+                  <th>Order Image</th>
+                  <th> Order Description</th>
                    <th>Order Status</th>
                    <th>Order Amount</th>
                    <th>Order Submitted Date</th>
@@ -41,8 +71,9 @@
                </tr>
 
                <tr ng-repeat="order in orders" >
-                   <td>{{order.orderID}}</td>
-                   <td>{{order.orderno}}</td>
+                    <td>{{order.orderno}}</td>
+                    <td><span><img ng-src="{{order.image}}" width="100" height="50" alt=""/></span></td>
+                    <td>{{order.name}}</td>
                    <td> {{order.orderstatus}}</td>
                    <td>R {{order.orderamount}}</td>
                    <td>{{order.date}}</td>
@@ -50,7 +81,7 @@
                    <td>{{order.cID}}</td>
                    <td >      
                        <p> 
-                            <label for="pCat" class="pCat"  > Product Category:</label>
+                            <label for="pCat" class="pCat"  > Update Order Status:</label>
                             <select name="pCat" id="pCat" ng-model="status">
                                 <option ng-repeat="orderstatu in orderStatus" value="{{orderstatu.name}}">{{orderstatu.name}} </option>
                             </select>

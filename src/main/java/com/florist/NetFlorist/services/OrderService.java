@@ -8,6 +8,7 @@ package com.florist.NetFlorist.services;
 import com.florist.NetFlorist.model.Orderinformation;
 import com.florist.NetFlorist.repositories.OrderRepository;
 import java.io.Serializable;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +44,7 @@ public class OrderService implements Serializable{
        return orderRepository.removeOrder(orderID);
    }
      
-   public Object findByOrderNo(int orderNo)
+   public ArrayList<Orderinformation> findByOrderNo(int orderNo)
    {
        return orderRepository.viewByOrderNo(orderNo);
    }

@@ -47,31 +47,41 @@ public class Orderinformation implements Serializable {
     private String orderstatus;
     @Column(name = "orderamount")
     private double orderamount;
-    @Column(name = "orderdetails")
-    private String orderdetails;
     @Column(name = "orderdate")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date date = new Date();
     @Column(name = "delivarydate")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date delivarydate;
-    
-    public Orderinformation() {
-    }
+    @Column(name = "name")
+    private String name;
+    @Column(name = "category")
+    private String category;
+    @Column(name = "quantity")
+    private int quantity;
+    @Column(name = "pid")
+    private int pid;
+    @Column(name = "price")
+    private double price;
+    @Column(name = "image")
+    private String image;
 
-    public Orderinformation(int orderID) {
-        this.orderID = orderID;
-    }
-
-    public Orderinformation(int orderID, int cID,Date delivarydate, int orderno, double orderamount, String orderstatus, String orderdetails, Date date) {
+    public Orderinformation(int orderID, int cID, int orderno, String orderstatus, double orderamount, Date delivarydate, String name, String category, int quantity, int pid, double price, String image) {
         this.orderID = orderID;
         this.cID = cID;
-        this.orderamount = orderamount;
         this.orderno = orderno;
         this.orderstatus = orderstatus;
-        this.orderdetails = orderdetails;
-        this.date = date; 
-        this.delivarydate = delivarydate;
+        this.orderamount = orderamount;
+         this.delivarydate = delivarydate;
+        this.name = name;
+        this.category = category;
+        this.quantity = quantity;
+        this.pid = pid;
+        this.price = price;
+        this.image = image;
+    }
+
+    public Orderinformation() {
     }
 
     public int getOrderID() {
@@ -82,28 +92,12 @@ public class Orderinformation implements Serializable {
         this.orderID = orderID;
     }
 
-    public String getOrderstatus() {
-        return orderstatus;
+    public int getcID() {
+        return cID;
     }
 
-    public void setOrderstatus(String orderstatus) {
-        this.orderstatus = orderstatus;
-    }
-
-    public String getOrderdetails() {
-        return orderdetails;
-    }
-
-    public void setOrderdetails(String orderdetails) {
-        this.orderdetails = orderdetails;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
+    public void setcID(int cID) {
+        this.cID = cID;
     }
 
     public int getOrderno() {
@@ -114,12 +108,12 @@ public class Orderinformation implements Serializable {
         this.orderno = orderno;
     }
 
-    public int getcID() {
-        return cID;
+    public String getOrderstatus() {
+        return orderstatus;
     }
 
-    public void setcID(int cID) {
-        this.cID = cID;
+    public void setOrderstatus(String orderstatus) {
+        this.orderstatus = orderstatus;
     }
 
     public double getOrderamount() {
@@ -130,12 +124,68 @@ public class Orderinformation implements Serializable {
         this.orderamount = orderamount;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public Date getDelivarydate() {
         return delivarydate;
     }
 
     public void setDelivarydate(Date delivarydate) {
         this.delivarydate = delivarydate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public int getProduct_id() {
+        return pid;
+    }
+
+    public void setProduct_id(int pid) {
+        this.pid = pid;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
 }
