@@ -6,6 +6,7 @@
 package com.florist.NetFlorist.repositories;
 
 import com.florist.NetFlorist.model.Delivary;
+import java.util.ArrayList;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -19,5 +20,5 @@ import org.springframework.data.rest.webmvc.RepositoryRestController;
 public interface DelivaryRepository extends CrudRepository<Delivary, Integer>{
    
     @Query("SELECT d FROM Delivary d WHERE d.orderno = :orderno")
-    public Object viewByOrderNo(@Param("orderno") int orderNo);
+    public ArrayList<Delivary> viewByOrderNo(@Param("orderno") int orderNo);
 }

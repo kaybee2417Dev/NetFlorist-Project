@@ -34,9 +34,7 @@
                   <th> Order Description</th>
                    <th>Order Status</th>
                    <th>Order Date</th>
-                   <th>Order Delivered To: </th>
-                   <th>Order Contact Details: </th>
-                   <th>Order Delivery Address: </th>
+                   
                </tr>
 
                <tr ng-repeat="ord in ordersIn">
@@ -45,10 +43,9 @@
                    <td>{{ord.name}}</td>
                    <td>{{ord.orderstatus}}</td>
                    <td>{{ord.date}}</td>
-                   <td>{{delivary.name}} {{delivary.surname}}</td>
-                   <td>{{delivary.contacts}} {{delivary.email}}</td>
-                   <td>{{delivary.delivarytype}} {{delivary.street}} {{delivary.city}} {{delivary.province}}</td>
-                </tr>
+                   
+               </tr>
+               
            </table>
         </div>
    </body>

@@ -8,6 +8,7 @@ package com.florist.NetFlorist.services;
 import com.florist.NetFlorist.model.Delivary;
 import com.florist.NetFlorist.repositories.DelivaryRepository;
 import java.io.Serializable;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class DelivaryService implements Serializable{
         return delivaryRepository.save(delivary);
     }  
     
-    public Object viewByOrderNo(int orderNo)
+    public ArrayList<Delivary> viewByOrderNo(int orderNo)
     {
         return delivaryRepository.viewByOrderNo(orderNo);
     }

@@ -20,18 +20,51 @@ netFloristModule.controller("CustomerController",['$scope','$http',function($sco
                         "mobileNo" : $scope.mobileNo,
                         "role":role
                     };
-                    console.log(user);
-                     $http.post('http://localhost:9191/customer/register',user        
-		        ).success(function(response) {
-                            alert("Customer Not Registered...Try Again!Email Already in use...");
-                            console.log(response);
-                           })
-                        .error(function(response) {
-                            alert("Customer Registered...");
-                           window.location.href = './login.html';
-                           console.log(response);
-                        });
-                };       
+                    
+            if(user.fname !== undefined)
+            {
+                if(user.lname !== undefined)
+                {
+                    if(user.email !== undefined)
+                    {
+                        if(user.mobileNo !== undefined)
+                        {
+                            if(user.password !== undefined)
+                            {
+                                console.log(user);
+                                $http.post('http://localhost:9191/customer/register',user        
+                                   ).success(function(response) {
+                                       alert("User Not Registered...Try Again!Email Already in use...");
+                                       console.log(response);
+                                      })
+                                   .error(function(response) {
+                                       alert("User Registered...");
+                                      window.location.href = './login.html';
+                                      console.log(response);
+                                });
+                                 
+                            }else
+                            {
+                                alert("Enter User Password...");
+                            }
+                        }else
+                        {
+                            alert("Enter User Email...");
+                        }
+                    }else
+                    {
+                        alert("Enter User Email...");
+                    }
+                }else
+                {
+                    alert("Enter User Last Name...");
+                }
+            }else
+            {
+                alert("Enter User First Name...");
+            }
+                    
+       };      
 }]);
 
 netFloristModule.controller("LoginController",function($scope,$http){
@@ -41,7 +74,12 @@ netFloristModule.controller("LoginController",function($scope,$http){
         {
             var username=  $scope.username;
             var password=  $scope.password;
-            var userid = 0;
+            
+            if(username !== undefined)
+            {
+                 if(password !== undefined)
+                {
+                    var userid = 0;
                    $http.get('http://localhost:9191/login/'+ username + '/'+ password + '').then(function(response){
 		               if(response.data.role === "customer")
                                {
@@ -54,8 +92,16 @@ netFloristModule.controller("LoginController",function($scope,$http){
                                }else{
                                    alert("Verify your crediantials...Try Again!!!");
                                  }
-		         });
-              
+		        });
+                }else
+                {
+                   alert("Enter Passwprd...");
+                }
+            }else
+            {
+               alert("Enter Username...");
+            }
+            
        };      
 });
 
@@ -99,8 +145,7 @@ netFloristModule.controller("ProductController",function($scope,$http){
                 console.log(response);
                 if(response.data !== 0)
                 {
-                   
-                    alert("Product has been Deleted");
+                   alert("Product has been Deleted");
                 }else{
                    
                     alert("Product Not Deleted!..Incorrect Product Name..!!!");
@@ -114,8 +159,7 @@ netFloristModule.controller("ProductController",function($scope,$http){
            console.log(pid);
            $http.get('http://localhost:9191/findProduct/' + pid + '').then(function (response) {
             $scope.prod = response.data;
-           
-            });
+           });
        };
        
          //######################## Edit Product with Product ID  #####################################
@@ -125,18 +169,28 @@ netFloristModule.controller("ProductController",function($scope,$http){
             var cat = $scope.prod.category;
             var price = $scope.prod.price;
             
-           
-            $http.put('http://localhost:9191/update/' + pid + '/' + name + '/' + cat + '/'+price+'').then(function(response){
+            if(name !== undefined)
+            {
+                if( price !== undefined){
+                    
+                    $http.put('http://localhost:9191/update/' + pid + '/' + name + '/' + cat + '/'+price+'').then(function(response){
             
-                console.log(response);
-                if(response.data !== 0)
+                        console.log(response);
+                        if(response.data !== 0)
+                        {
+                            alert("Product has been Updated");
+                        }else
+                        {
+                            alert("Product Not Updated!..Product Name exists..!!!");
+                        }
+                    }); 
+                }else
                 {
-                    alert("Product has been Updated");
-                }else{
-                    alert("Product Not Updated!..Product Name exists..!!!");
+                    alert("Enter Product Price...");
                 }
-            });
-         
+            }else {
+                alert("Enter Product Name...");
+            }
         };
 
 });
@@ -193,19 +247,35 @@ netFloristModule.controller("AddProductController",function($scope,$http){
                         image : $scope.image
                   };
          
-         
-           $http.post('http://localhost:9191/saveproduct',product).then(function(response){
-                
-                console.log(response);
-                console.log(product);
-                if(response.data.pID !== 0)
-                {
-                      alert("Product Added...");
+         if(product.name !== undefined)
+         {
+             if(product.price !== undefined)
+            {
+               if(product.category !== undefined)
+                        {
+                              $http.post('http://localhost:9191/saveproduct',product).then(function(response){
+
+                                console.log(response);
+                                console.log(product);
+                                if(response.data.pID !== 0)
+                                {
+                                      alert("Product Added...");
+                                }else{
+                                    alert("Product Not Added");
+                                }
+                            });
+
+                        }else{
+                            alert("Select Product Category...");
+                        }
                 }else{
-                    console.log("Product Added");
-                  
-                }
-            });
+                alert("Enter Product Price...");
+            }
+
+         }else{
+             alert("Enter Product Name...");
+         }
+
            
         };   
 
@@ -223,7 +293,8 @@ netFloristModule.controller("CategoryController",function($scope,$http){
               "name" :$scope.name
            };
           
-           $http.post('http://localhost:9191/saveCat',cat ).then(function(response){
+          if(cat.name !== undefined){
+               $http.post('http://localhost:9191/saveCat',cat ).then(function(response){
                 
                 console.log(response);       
                 if(response.data.catcatID !== 0)
@@ -234,23 +305,33 @@ netFloristModule.controller("CategoryController",function($scope,$http){
                     alert("Category Not Added...");
                 }
             });
-            
+          }else
+          {
+              alert("Enter Category Name...");
+          }
+      
         };  
         
         //######################## Admin remove category  #####################################
         $scope.removeCategory = function ()
         {
             var name = $scope.name;
-            $http.delete('http://localhost:9191/deteleCat/' + name + '').then(function(response){
+            if( name !== undefined){
+                 $http.delete('http://localhost:9191/deteleCat/' + name + '').then(function(response){
                 console.log(response);
                 
-                if(response.data !== 0)
-                {
-                     alert("Category has been Deleted");
-                }else{
-                     alert("Category Not Deleted!..Incorrect Category Name..!!!");
-                }
-            });
+                    if(response.data !== 0)
+                    {
+                         alert("Category has been Deleted");
+                    }else{
+                         alert("Category Not Deleted!..Incorrect Category Name..!!!");
+                    }
+                });
+            }else
+            {
+               alert("Enter Category Name to be deleted...");
+            }
+           
         };
 });
 
@@ -265,6 +346,7 @@ netFloristModule.controller("CustomerProductController", function ($scope, $http
         $scope.users = response.data;
         console.log($scope.users);
         });
+        
     //######################## Retrieve Categories #####################################
     $http.get('http://localhost:9191/showAllCat').then(function (response) {
         $scope.categories = response.data;
@@ -299,7 +381,7 @@ netFloristModule.controller("CustomerProductController", function ($scope, $http
              });
            };
            
-           //######################## Add Product To Cart  #####################################
+       //######################## Add Product To Cart  #####################################
        $scope.cartItems = [];
        $scope.CartAmount = 0.0;
        $scope.addToCart = function(products)
@@ -459,91 +541,158 @@ netFloristModule.controller("CustomerProductController", function ($scope, $http
              var cardHolder = $scope.cardHolder;
              var bankName = $scope.bankName;
              
-             $http.get('http://localhost:9191/searchAccount/' + cardNo + '/'+ cardHolder + '/' + bankName).then(function(response){
-                              console.log(response.data);
-                               $scope.banking = response.data;
-                               
-            if($scope.banking.bankID !== undefined)
-            {
-                var bankAmount = $scope.banking.balance;
-                var bankBalance = 0.0;
-                var cardAmount = $scope.CartAmount;
-                var bankCardNo = $scope.banking.cardno;
-                var bankid = $scope.banking.bankID;
-                
-                 if(bankAmount < cardAmount)
+             if(cardNo !== undefined)
+             {
+                if(cardHolder !== undefined)
                 {
-                  alert("insufficient Funds in your Bank Account!! Order can not be Processed...");
-                }else{
-                    
-                    bankBalance = bankAmount - cardAmount;
-                    $http.put('http://localhost:9191/updateAccount/' +cardNo+ '/' +bankBalance+ '').then(function(response){
-                    console.log(response);
-                    }); 
-                  
-                    var minNumber = 0; // The minimum number you want
-                    var maxNumber = 500; // The maximum number you want
-                    var randomnumber = Math.floor(Math.random() * (maxNumber + 1) + minNumber);
-                    var orderno = randomnumber + bankCardNo + randomnumber + bankid;
-                    
-                    var address = {
-                        "orderno": orderno,
-                        "name": $scope.name,
-                        "surname": $scope.surname,
-                        "email":$scope.email,
-                        "delivarytype": $scope.delivaryType,
-                        "contacts": $scope.contacts,
-                        "street": $scope.street,
-                        "city":$scope.city,
-                        "province":$scope.provinceName};
-                    console.log($scope.date);
-                 
-                       
-                   for(var x = 0; x < $scope.cartItems.length; x++){
-                       
-                      var name = $scope.cartItems[x].name;
-                      var quantity = $scope.cartItems[x].quantity;
-                      var product_id = $scope.cartItems[x].product_id;
-                      var price =  $scope.cartItems[x].price;
-                      var category = $scope.cartItems[x].category;
-                      var image= $scope.cartItems[x].image;
-                     // var totalamount = $scope.cartItems[x].totalAmount; 
-           
-                     //console.log(name + quantity + product_id + price + category  + totalamount);
-                      //.log("show data");
-                    var orderData = {
-                        "orderstatus": "New Order",
-                        "orderamount": $scope.CartAmount ,
-                        "cID": userID,
-                        "orderno": orderno,
-                        "delivarydate":$scope.date,
-                        "name":name,
-                        "quantity":quantity,
-                        "pid":product_id,
-                        "price":price,
-                        "category":category,
-                        "image":image
-                    };
-                    
-                    console.log(orderData);
-                    console.log("showing data..");
-                    $http.post('http://localhost:9191/saveOrder',orderData).then( function (response){
-                        console.log(response);
-                    });
-                }
-                   
-                   $http.post('http://localhost:9191/saveDelivary',address).then(function(response){
+                    if(bankName !== undefined)
+                    {
+                        $http.get('http://localhost:9191/searchAccount/' + cardNo + '/'+ cardHolder + '/' + bankName).then(function(response){
                             console.log(response);
-                          });
-                         alert("Order Processed...");
-                        alert("Order Number: " + orderno);
+                            $scope.banking = response.data;
+
+                            if($scope.banking.bankID !== undefined)
+                            {
+                                var bankAmount = $scope.banking.balance;
+                                var bankBalance = 0.0;
+                                var cardAmount = $scope.CartAmount;
+                                var bankCardNo = $scope.banking.cardno;
+                                var bankid = $scope.banking.bankID;
+
+                                 if(bankAmount < cardAmount)
+                                {
+                                  alert("insufficient Funds in your Bank Account!! Order can not be Processed...");
+                                }else{
+
+                                    bankBalance = bankAmount - cardAmount;
+                                    $http.put('http://localhost:9191/updateAccount/' +cardNo+ '/' +bankBalance+ '').then(function(response){
+                                    console.log(response);
+                                    }); 
+
+                                    var minNumber = 0; // The minimum number you want
+                                    var maxNumber = 500; // The maximum number you want
+                                    var randomnumber = Math.floor(Math.random() * (maxNumber + 1) + minNumber);
+                                    var orderno = randomnumber + bankCardNo + randomnumber + bankid;
+
+                                    var address = {
+                                        "orderno": orderno,
+                                        "name": $scope.name,
+                                        "surname": $scope.surname,
+                                        "email":$scope.email,
+                                        "delivarytype": $scope.delivaryType,
+                                        "contacts": $scope.contacts,
+                                        "street": $scope.street,
+                                        "city":$scope.city,
+                                        "province":$scope.provinceName};
+                                    console.log($scope.date);
+                                     
+                                     if(address.name !== undefined)
+                                     {
+                                        if(address.surname !== undefined)
+                                        {
+                                            if(address.email !== undefined)
+                                            {
+                                                if(address.delivarytype !== undefined)
+                                                {
+                                                    if(address.contacts !== undefined)
+                                                    {
+                                                        if(address.street !== undefined)
+                                                        {
+                                                            if(address.city !== undefined)
+                                                            {
+                                                                if(address.province !== undefined)
+                                                                {
+                                                                      for(var x = 0; x < $scope.cartItems.length; x++){
+
+                                                                    var name = $scope.cartItems[x].name;
+                                                                    var quantity = $scope.cartItems[x].quantity;
+                                                                    var product_id = $scope.cartItems[x].product_id;
+                                                                    var price =  $scope.cartItems[x].price;
+                                                                    var category = $scope.cartItems[x].category;
+                                                                    var image= $scope.cartItems[x].image;
+                                                                   // var totalamount = $scope.cartItems[x].totalAmount; 
+
+                                                                   //console.log(name + quantity + product_id + price + category  + totalamount);
+                                                                    //.log("show data");
+                                                                  var orderData = {
+                                                                      "orderstatus": "New Order",
+                                                                      "orderamount": $scope.CartAmount ,
+                                                                      "cID": userID,
+                                                                      "orderno": orderno,
+                                                                      "delivarydate":$scope.date,
+                                                                      "name":name,
+                                                                      "quantity":quantity,
+                                                                      "pid":product_id,
+                                                                      "price":price,
+                                                                      "category":category,
+                                                                      "image":image
+                                                                  };
+
+                                                                  console.log(orderData);
+                                                                  console.log("showing data..");
+                                                                  $http.post('http://localhost:9191/saveOrder',orderData).then( function (response){
+                                                                      console.log(response);
+                                                                  });
+                                                                  
+                                                              
+                                                                $http.post('http://localhost:9191/saveDelivary',address).then(function(response){
+                                                                         console.log(response);
+                                                                       });
+                                                                      alert("Order Processed...");
+                                                                     alert("Order Number: " + orderno);
+                                                              }
+                                                                }else{
+                                                                    alert("Select Recipient Province...");
+                                                                }
+
+                                                            }else{
+                                                                alert("Enter Recipient City...");
+                                                            }
+
+                                                        }else{
+                                                            alert("Enter Recipient Street Name...");
+                                                        }
+
+                                                    }else{
+                                                        alert("Enter Recipient Contacts Numbers...");
+                                                    }
+
+                                                }else{
+                                                    alert("Select Recipient Type...");
+                                                }
+
+                                            }else{
+                                                alert("Enter Recipient Email...");
+                                            }
+
+                                        }else{
+                                            alert("Enter Recipient Surname...");
+                                        }
+
+                                     }else{
+                                         alert("Enter Recipient Name...");
+                                     }
+                                }
+                             }else{
+                                 console.log("Account Not Authorized");
+                                 alert("Account Not Authorized..Verify your Credict Card Details...");
+                             }              
+
+                        });
+                    }else
+                    {
+                        alert("Select Bank Name!!!");
+                    }
+                }else
+                {
+                    alert("Enter Your Card Holder Namde!!!");
                 }
-             }else{
-                 console.log("Account Not Authorized");
-                 alert("Account Not Authorized..Verify your Credict Card Details...");
-             }              
-                               
-	 });
+             }else
+             {
+                 alert("Enter Your Card Number!!!");
+             }
+             
+      
     };
   
 });
@@ -562,34 +711,7 @@ netFloristModule.controller("DelivaryController",function($scope,$http){
                    console.log(response);
                    $scope.provinces = response.data;
 	 });
-    
-  /*  $scope.create = function ()
-         {
-                var address = {
-                 "name": $scope.name,
-                 "surname": $scope.surname,
-                 "email":$scope.email,
-                 "delivarytype": $scope.delivaryType,
-                 "contacts": $scope.contacts,
-                 "street": $scope.street,
-                 "city":$scope.city,
-                 "province":$scope.provinceName  
-             };
-             
-             
-             $http.post('http://localhost:9191/saveDelivary',address).then(function(response){
-                 console.log(response);
-                if(response.data.getDelivaryID !== 0)
-                {
-                   alert("Delivary Added...");
-                    
-                }else{
-                  
-                    alert("Delivary Not Added...");
-                }
-             });
-             
-         };*/
+
 });
 
 netFloristModule.controller("OrderController",function($scope,$http){
@@ -646,6 +768,7 @@ netFloristModule.controller("OrderController",function($scope,$http){
          //######################## TRACK Order Using Order No Customer Site #####################################
          $scope.trackOrder = function (orderNo)
          {
+            if(orderNo !== undefined){ 
                 $http.get('http://localhost:9191/viewbyOrderNo/' + orderNo + '').then(function(response){
                    console.log(response);
                    $scope.ordersIn = response.data;
@@ -657,6 +780,10 @@ netFloristModule.controller("OrderController",function($scope,$http){
                    console.log(response);
                    $scope.delivary = response.data;
                  });
+            }else
+            {
+                alert("Enter Order Number...!!!");
+            }
        };
        
        //######################## Completed #####################################

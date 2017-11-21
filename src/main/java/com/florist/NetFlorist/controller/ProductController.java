@@ -52,8 +52,7 @@ public class ProductController implements Serializable  {
     public Product saveProducts(@RequestBody Product product)
     {
         Product prod = new Product();
-        System.out.println("name:  " + product.getName());
-        System.out.println("image:  " + product.getImage());
+  
         try{
             
             prod = productService.saveProduct(product);
@@ -61,12 +60,12 @@ public class ProductController implements Serializable  {
             {
                 System.out.println(" product saved");
             }else{
-                  System.out.println(" product Not saved");
+                System.out.println(" product Not saved");
             }
         }catch(Exception ex)
         {
             System.out.println("Error Message: " + ex.getMessage());
-        }
+         }
     
       return prod;  
     }
@@ -88,6 +87,7 @@ public class ProductController implements Serializable  {
             }
         }catch(Exception ex){
              System.out.println("Error Message: " + ex.getMessage());
+                  
         }
        
         return deleted;
@@ -110,6 +110,7 @@ public class ProductController implements Serializable  {
             }
         }catch(Exception ex){
             System.out.println("Error Message: " + ex.getMessage());
+           
         }
         
         return updated;
