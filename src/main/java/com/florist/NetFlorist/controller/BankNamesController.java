@@ -6,7 +6,6 @@
 package com.florist.NetFlorist.controller;
 
 import com.florist.NetFlorist.services.BankNamesService;
-import java.io.Serializable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author User
  */
 @Controller
-public class BankNamesController implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class BankNamesController {
     
     @Autowired
     private BankNamesService bankNameService;

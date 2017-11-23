@@ -7,6 +7,8 @@ package com.florist.NetFlorist.repositories;
 
 import com.florist.NetFlorist.model.Delivary;
 import java.util.ArrayList;
+import javax.transaction.Transactional;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -21,4 +23,9 @@ public interface DelivaryRepository extends CrudRepository<Delivary, Integer>{
    
     @Query("SELECT d FROM Delivary d WHERE d.orderno = :orderno")
     public ArrayList<Delivary> viewByOrderNo(@Param("orderno") int orderNo);
+    
+    @Transactional
+    @Modifying
+    @Query("Delete FROM Delivary d WHERE d.orderno = :orderno")
+    public int deleteDelivaryInformation(@Param("orderno") int orderNo);
 }

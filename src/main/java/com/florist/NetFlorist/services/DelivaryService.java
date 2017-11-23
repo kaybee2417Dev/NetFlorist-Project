@@ -17,9 +17,7 @@ import org.springframework.stereotype.Service;
  * @author User
  */
 @Service
-public class DelivaryService implements Serializable{
-    private static final long serialVersionUID = 1L;
-    
+public class DelivaryService{
     @Autowired
     private DelivaryRepository delivaryRepository;
     
@@ -31,5 +29,10 @@ public class DelivaryService implements Serializable{
     public ArrayList<Delivary> viewByOrderNo(int orderNo)
     {
         return delivaryRepository.viewByOrderNo(orderNo);
+    }
+    
+    public int deleteDelivary(int orderNo)
+    {
+        return delivaryRepository.deleteDelivaryInformation(orderNo);
     }
 }

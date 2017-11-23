@@ -6,8 +6,8 @@
 package com.florist.NetFlorist.controller;
 
 import com.florist.NetFlorist.model.Orderinformation;
+import com.florist.NetFlorist.services.DelivaryService;
 import com.florist.NetFlorist.services.OrderService;
-import java.io.Serializable;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,11 +22,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author User
  */
 @Controller
-public class OrderController implements Serializable{
-    private static final long serialVersionUID = 1L;
-    
+public class OrderController{
+   
     @Autowired
     private OrderService orderService;
+    
+    @Autowired
+    private DelivaryService delivaryService;
     
      //=========================Save an Order==========================
     @RequestMapping(value = "/saveOrder", method = RequestMethod.POST)
@@ -37,14 +39,14 @@ public class OrderController implements Serializable{
         
         try{
             storeOrder = orderService.saveOrder(order);
-            if(storeOrder != null)
+           if(storeOrder != null)
            {
                System.out.println("Save Order");
            }else{
                System.out.println("Save Not Order");
            }
         }catch(Exception ex){
-            System.out.println("Error Message:" + ex.getMessage());
+        
         }
        
         return storeOrder;
@@ -65,8 +67,8 @@ public class OrderController implements Serializable{
     {
           
         int updated = 0;
-        
-        try{
+        updated = orderService.updateOrderStatus(id, status);
+        /*try{
              updated = orderService.updateOrderStatus(id, status);
              if(updated != 0)
             {
@@ -76,29 +78,23 @@ public class OrderController implements Serializable{
             }
         }catch(Exception ex){
             System.out.println("Error Message:" + ex.getMessage());
-        }
+        }*/
         
         return updated;
     }
     
     //=====================Remove Order Status==========================
-    @RequestMapping(value = "/removewOrderStatus/{id}" , method = RequestMethod.DELETE)
+    @RequestMapping(value = "/removewOrderStatus/{orderNo}" , method = RequestMethod.DELETE)
     @ResponseBody
-    public int removeOrderStatu(@PathVariable int id )
+    public int removeOrderStatu(@PathVariable int orderNo )
     {
         int delete = 0;
-        try{
-            delete = orderService.removeOrder(id);
+        
+        delete = orderService.removeOrder(orderNo);
 
-           if(delete != 0)
-           {
-               System.out.println("Order has been deleted");
-           }else{
-               System.out.println("Order not deleted");
-           }
-        }catch(Exception ex)
+        if(delete != 0)
         {
-            System.out.println("Error: " + ex.getMessage());
+             delivaryService.deleteDelivary(orderNo);
         }
         return delete;
     }

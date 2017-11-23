@@ -2,29 +2,25 @@
 
 <html ng-app="NetFloristApp">
     <head>
-        <title>Admin Panel</title>
-        <script src="./js/angular.min.js"></script>
+        <title>Customer-Orders</title>
+        <script src="./js/angular.js"></script>
         <script type="text/javascript" src="./js/angular-route.min.js"></script>
 	<script src="./js/app.js"></script>
         <link rel="stylesheet" type="text/css" href="./css/demo.css" />
         <link rel="stylesheet" type="text/css" href="./css/menus.css" />
-     <link rel="stylesheet" type="text/css" href="./css/tables.css" />
+        <link rel="stylesheet" type="text/css" href="./css/tables.css" />
 
     </head>
 
     <body ng-controller="OrderController">
-     
-        
-        <div >
-  
-           <ul>
+        <ul>
                <li><a href="#home">Customer Site</a></li>
                <li><a href="./customerHomePage.html">Customer Home</a></li>
                <li><a href="./login.html">Log Out</a></li>
-            </ul>
+        </ul>
   
             
-            <input type="text" id="myInput" ng-model="orderNo" placeholder="Enter Order No..." style="width:80%;  padding: 12px 20px;  margin: 8px 0;box-sizing: border-box;}">
+            <input type="text" id="myInput" ng-model="orderNo" placeholder="Enter Order No..." style="width:80%;  padding: 12px 20px;  margin: 8px 0;box-sizing: border-box;}"/>
             <input type="button" id="checkOrder" value="Check Order"  class="checkOrder" ng-click="trackOrder(orderNo)"/>
                        
           <table id="tbl">
@@ -32,9 +28,8 @@
                   <th>Order Number</th>
                   <th>Order Image</th>
                   <th> Order Description</th>
-                   <th>Order Status</th>
-                   <th>Order Date</th>
-                   
+                  <th>Order Status</th>
+                  <th>Order Date</th>
                </tr>
 
                <tr ng-repeat="ord in ordersIn">
@@ -47,7 +42,7 @@
                </tr>
                
            </table>
-        </div>
+       
    </body>
 </html>
 

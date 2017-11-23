@@ -5,24 +5,26 @@
  */
 package com.florist.NetFlorist.controller;
 
+import com.florist.NetFlorist.exceptions.DataNotFoundException;
 import com.florist.NetFlorist.model.Product;
 import com.florist.NetFlorist.services.ProductService;
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author User
  */
 
-@Controller
+@RestController
 public class ProductController implements Serializable  {
     private static final long serialVersionUID = 1L;
     
@@ -49,25 +51,17 @@ public class ProductController implements Serializable  {
     //============================Save Products==========================
     @RequestMapping(value = "/saveproduct" , method = RequestMethod.POST)
     @ResponseBody
-    public Product saveProducts(@RequestBody Product product)
+    public Product saveProducts(@RequestBody Product product) throws SQLException
     {
         Product prod = new Product();
-  
         try{
-            
             prod = productService.saveProduct(product);
-            if(prod != null)
-            {
-                System.out.println(" product saved");
-            }else{
-                System.out.println(" product Not saved");
-            }
         }catch(Exception ex)
         {
-            System.out.println("Error Message: " + ex.getMessage());
-         }
-    
-      return prod;  
+            System.out.println("Erro Side");
+            throw new SQLException(ex.getMessage());
+        }
+       return prod;  
     }
     
      //============Remove Product based on name==========================
@@ -76,20 +70,7 @@ public class ProductController implements Serializable  {
     public int removeProduct(@PathVariable String name)
     {
         int deleted = 0;
-        
-        try{
             deleted = productService.deleteProduct(name);
-            if(deleted != 0)
-            {
-                System.out.println("Product has been Deleted");
-            }else{
-                System.out.println("Product not Deleted");
-            }
-        }catch(Exception ex){
-             System.out.println("Error Message: " + ex.getMessage());
-                  
-        }
-       
         return deleted;
     }
      
@@ -100,18 +81,7 @@ public class ProductController implements Serializable  {
     {
         int updated = 0;
         
-        try{
             updated = productService.updateProduct(id, name, category, price);
-            if(updated != 0)
-            {
-                System.out.println("Product has been Updated");
-            }else{
-                System.out.println("Product not Updated");
-            }
-        }catch(Exception ex){
-            System.out.println("Error Message: " + ex.getMessage());
-           
-        }
         
         return updated;
     }

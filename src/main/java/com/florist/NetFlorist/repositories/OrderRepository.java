@@ -27,10 +27,10 @@ public interface OrderRepository extends CrudRepository<Orderinformation, Intege
     public int updateStatusName(@Param("orderID") int orderID, @Param("orderstatus") String status);
 
     @Transactional
-     @Modifying
-     @Query("Delete FROM Orderinformation o WHERE o.orderID = :orderID")
-     public int removeOrder(@Param("orderID") int orderID);
+    @Modifying
+    @Query("Delete FROM Orderinformation o WHERE o.orderno = :orderno")
+    public int removeOrder(@Param("orderno") int orderNo);
      
     @Query("SELECT o FROM Orderinformation o WHERE o.orderno = :orderno")
-     public ArrayList<Orderinformation> viewByOrderNo(@Param("orderno") int orderNo);
+    public ArrayList<Orderinformation> viewByOrderNo(@Param("orderno") int orderNo);
 }

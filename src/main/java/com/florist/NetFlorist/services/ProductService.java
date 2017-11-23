@@ -17,9 +17,7 @@ import org.springframework.stereotype.Service;
  * @author User
  */
 @Service
-public class ProductService implements Serializable{
-    private static final long serialVersionUID = 1L;
-
+public class ProductService{
     @Autowired
     private ProductRepository productRepository;
     

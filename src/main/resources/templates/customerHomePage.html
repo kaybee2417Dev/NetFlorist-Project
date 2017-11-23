@@ -2,8 +2,8 @@
 
 <html ng-app="NetFloristApp">
     <head>
-        <title>Customer Home</title>
-        <script src="./js/angular.min.js"></script>
+        <title>Customer-Home</title>
+        <script src="./js/angular.js"></script>
         <script type="text/javascript" src="./js/angular-route.min.js"></script>
 	<script src="./js/app.js"></script>
         <link rel="stylesheet" type="text/css" href="./css/demo.css" />
@@ -11,53 +11,29 @@
         <!--link rel="stylesheet" type="text/css" href="./css/style3.css" />-->
         <link rel="stylesheet" type="text/css" href="./css/tables.css" />
         <link rel="stylesheet" type="text/css" href="./css/models.css" />
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>           
-         
-    <!--<script>
-        function myFunction() {
-          // Declare variables 
-          var input, filter, table, tr, td, i;
-          input = document.getElementById("myInput");
-          filter = input.value.toUpperCase();
-          table = document.getElementById("tbl");
-          tr = table.getElementsByTagName("tr");
+    
+        <script>
+        $(document).ready(function(){
+            $("#myBtn").click(function(){
+                $("#myModal").modal();
+            });
+        });
 
-          // Loop through all table rows, and hide those who don't match the search query
-          for (i = 0; i < tr.length; i++) 
-          {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-              if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-              } else {
-                tr[i].style.display = "none";
-              }
-            } 
-          }
-        };
-</script>-->
-    
-    <script>
-    $(document).ready(function(){
-        $("#myBtn").click(function(){
-            $("#myModal").modal();
-        });
-    });
-    
-     $(document).ready(function(){
-        $("#myBtnDelivary").click(function(){
-            $("#myModalDelivary").modal();
-        });
-        
-    });
          $(document).ready(function(){
-        $("#myBtnBank").click(function(){
-            $("#myModalBank").modal();
+            $("#myBtnDelivary").click(function(){
+                $("#myModalDelivary").modal();
+            });
+
         });
-    });
-</script>
+             $(document).ready(function(){
+            $("#myBtnBank").click(function(){
+                $("#myModalBank").modal();
+            });
+        });
+    </script>
      
     </head>
 
@@ -71,7 +47,6 @@
             </ul>
   
             <img src="./css/net.jpg" style="width:150;height:50; display: block; margin: 0 auto; " />
-           <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search For Products.." style="width:80%;  padding: 12px 20px;  margin: 8px 0;box-sizing: border-box;}">-->
            <div class ="tab"> 
                      <button class="tablinks"  ng-click="searchCategory(event,catss.name)" ng-repeat="catss in categories"> {{catss.name}} </button>
             </div>   
@@ -156,7 +131,7 @@
                                <td>
                                     <input type="button" value="+" ng-click="increaseItemCount(items,quantity)"/>
                                      <input type="number" name="quantity" ng-model="quantity" value="{{items.quantity}}" min="1" max="15" style="width: 5em;"/>
-                                     <input type="button" value="-" ng-click="decreaseItemCount(items,quantity)">
+                                     <input type="button" value="-" ng-click="decreaseItemCount(items,quantity)"/>
                                </td>
                                 
                                 <td>
@@ -199,7 +174,7 @@
                                 
                                <p>   
                                     <label for="date" class="date" data-icon="u">Select Delivery Date:</label>
-                                    <input id="date" type="date" value="2017-06-01" ng-model="date"> 
+                                    <input id="date" type="date" value="2017-06-01" ng-model="date"/> 
                                </p> 
                          
                                 <p> 
@@ -295,7 +270,7 @@
                            <a class="login pull-left" data-dismiss="modal"> Continue Shopping </a>
                         </p>
                          
-                        <button type="submit" class="btn btn-danger btn-default pull-middle" data-dismiss="modal" ng-click="payement()">Make Payment</button>
+                        <button type="submit" class="btn btn-danger btn-default pull-middle" data-dismiss="modal" ng-click="payement()">Place An Order</button>
                      </div>
                 </div>
             </div>

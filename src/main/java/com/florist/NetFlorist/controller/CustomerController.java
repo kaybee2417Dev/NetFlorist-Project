@@ -6,25 +6,27 @@
 package com.florist.NetFlorist.controller;
 
 
+
+import com.florist.NetFlorist.exceptions.DataNotFoundException;
 import com.florist.NetFlorist.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.florist.NetFlorist.services.CustomerService;
-import java.io.Serializable;
-import org.springframework.stereotype.Controller;
+import java.io.Console;
+import java.sql.SQLException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author User
  */
-@Controller 
-public class CustomerController implements Serializable {
-    private static final long serialVersionUID = 1L;
-    
+@RestController 
+public class CustomerController  {
+  
     @Autowired
     private CustomerService customerService;
  
@@ -46,74 +48,36 @@ public class CustomerController implements Serializable {
     }
     
     //========================Register Customer/Admin======================
-   @RequestMapping(method = RequestMethod.POST, value="/customer/register")
+   @RequestMapping(method = RequestMethod.POST, value="/register")
    @ResponseBody
-    public String registerCustomer(@RequestBody Customer customer)
+    public Customer registerCustomer(@RequestBody Customer customer) throws SQLException 
     {
-    
-       String message = " ";
-   
-       Customer cust = new Customer();
-       try{
-           System.out.println("Show Role" + customer.getRole());
+        Customer cust = new Customer();
+        
+        try{
             cust = customerService.saveCustomer(customer);
-            if(cust.getCID()!= 0)
-            {
-                System.out.println("Customer Registered!!!");
-                message = "Customer Registered!!!";
-                
-            }else{
-
-                System.out.println("Customer Not Registered!!!");
-                message = "Customer Not Registered!!!" + cust.getCID();
-             
-            }
-
-       }
-       catch(Exception ex)
-       {
-           System.out.println("exception catching!!!" + ex.getMessage());
-          
-       }
-       return message;
+        }catch(Exception ex)
+        {
+            System.out.println("Erro Side");
+            throw new SQLException(ex.getMessage());
+        }
+       return cust;
     }
     
     //========================FLogin Using username and password======================
     @RequestMapping(value="/login/{username}/{password}", method = RequestMethod.GET)
     @ResponseBody
     public Customer Login(@PathVariable String username, @PathVariable String password)
-    {
-        Customer cust = new Customer();
-        try{
-           
-            cust = customerService.loginDetaisl(username, password);
-            if(cust != null)
+    { 
+        Customer cust = customerService.loginDetails(username, password);
+       
+            if(cust == null)
             {
-                if(cust.getRole().equalsIgnoreCase("customer"))
-                {
-                    System.out.println("Customer");
-                 }else{
-                    System.out.println("Admin");
-                }
-
-            }else{
-                System.out.println("Not Registered");
- 
+              throw  new DataNotFoundException("User Not Found");
             }
-
-        }catch(Exception ex)
-        {
-            System.out.println("Error: " + ex.getMessage());
-        }
         return cust;
     }
  
-    //========================Redirect to home page======================
-    @RequestMapping(value = "/")
-    public String homePage()
-    {
-        return"home";
-    }
-    
+   
 
 }

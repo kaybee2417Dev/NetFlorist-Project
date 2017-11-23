@@ -16,8 +16,7 @@ import org.springframework.stereotype.Service;
  * @author User
  */
 @Service
-public class BankService implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class BankService{
     
     @Autowired
     private BankRepository bankRepository;

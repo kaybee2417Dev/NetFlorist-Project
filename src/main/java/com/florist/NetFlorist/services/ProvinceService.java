@@ -15,9 +15,7 @@ import org.springframework.stereotype.Service;
  * @author User
  */
 @Service
-public class ProvinceService implements Serializable{
-    private static final long serialVersionUID = 1L;
-    
+public class ProvinceService{
     @Autowired
     private ProvinceRepositiory provinceRep;
     public Object getAllProvice()

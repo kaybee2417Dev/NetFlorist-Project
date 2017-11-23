@@ -7,7 +7,7 @@ and open the template in the editor.
 <html lang="en-US" ng-app="NetFloristApp">
     <head>
         <title>Register</title>
-        <script src="./js/angular.min.js"></script>
+        <script src="./js/angular.js"></script>
         <script type="text/javascript" src="./js/angular-route.min.js"></script>
 	<script src="./js/app.js"></script>
         <link rel="stylesheet" type="text/css" href="./css/demo.css" />
@@ -15,7 +15,7 @@ and open the template in the editor.
         
     </head>
     
-        <body  ng-controller="CustomerController">
+        <body  ng-controller="RegisterController">
           
         <div class="container" >
 
@@ -28,7 +28,7 @@ and open the template in the editor.
                     <div id="wrapper">
                     <form name="register"> 
                         <img src="./css/net.jpg" style="width:150;height:50; " />
-                            <p> 
+                         
                                 <p> 
                                     <label for="firstName" class="fName" data-icon="u">First Name:</label>
                                     <input id="firstName" ng-model="fname" name="firstName" required="required" type="text" placeholder="Enter First Name" />
@@ -41,7 +41,7 @@ and open the template in the editor.
                                 
                                 <p> 
                                     <label for="emailsignup" class="youmail" data-icon="e" > Email Address:</label>
-                                    <input id="emailsignup" ng-model="email" name="emailsignup" required="required" type="email" placeholder="email@gmail.com"/> 
+                                    <input id="emailsignup" ng-model="email" name="emailsignup"  type="email" placeholder="email@gmail.com"/> 
                                 </p>
                                 
                                 <p> 
@@ -55,7 +55,7 @@ and open the template in the editor.
                                 </p>
                                 
                                 <p class="signin button"> 
-                                    <input type="submit" ng-click="create('0')" value="Sign up"/> 
+                                    <input type="submit" ng-click="registerCustomer('0')" value="Sign up"/> 
 				</p>
                                 <p class="change_link">  
 									Already a member ?

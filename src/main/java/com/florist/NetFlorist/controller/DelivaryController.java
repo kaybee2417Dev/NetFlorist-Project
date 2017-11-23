@@ -7,7 +7,6 @@ package com.florist.NetFlorist.controller;
 
 import com.florist.NetFlorist.model.Delivary;
 import com.florist.NetFlorist.services.DelivaryService;
-import java.io.Serializable;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,8 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author User
  */
 @Controller
-public class DelivaryController implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class DelivaryController {
     
     @Autowired
     private DelivaryService delivaryService;

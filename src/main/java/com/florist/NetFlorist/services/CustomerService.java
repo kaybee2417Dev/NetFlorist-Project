@@ -9,7 +9,6 @@ import com.florist.NetFlorist.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.florist.NetFlorist.repositories.CustomerRepository;
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -17,8 +16,7 @@ import java.util.List;
  * @author User
  */
 @Service
-public class CustomerService implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class CustomerService{
     
     @Autowired
     private CustomerRepository customerRepository;
@@ -43,7 +41,7 @@ public class CustomerService implements Serializable {
         customerRepository.delete(id);
     }
     
-    public Customer loginDetaisl(String email, String password)
+    public Customer loginDetails(String email, String password)
     {
         return customerRepository.login(email, password);
     }

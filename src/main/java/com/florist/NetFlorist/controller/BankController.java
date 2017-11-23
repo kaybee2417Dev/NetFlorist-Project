@@ -7,7 +7,6 @@ package com.florist.NetFlorist.controller;
 
 import com.florist.NetFlorist.model.Bank;
 import com.florist.NetFlorist.services.BankService;
-import java.io.Serializable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author User
  */
 @Controller
-public class BankController implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class BankController{
     
     @Autowired
     private BankService bankService;

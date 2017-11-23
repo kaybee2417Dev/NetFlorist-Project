@@ -18,8 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author User
  */
 @Controller
-public class ProvinceController implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class ProvinceController {
     
     @Autowired
     private ProvinceService pService;
