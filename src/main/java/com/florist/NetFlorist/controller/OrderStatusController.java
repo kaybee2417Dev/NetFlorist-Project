@@ -5,6 +5,7 @@
  */
 package com.florist.NetFlorist.controller;
 
+import com.florist.NetFlorist.exceptions.DataNotFoundException;
 import com.florist.NetFlorist.services.OrderStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,12 @@ public class OrderStatusController {
     @ResponseBody
     public Object viewOrderStatus()
     {
-       return orderStatusService.findAllOrderStatus();
+        Object object =  orderStatusService.findAllOrderStatus();
+        if(object == null)
+        {
+            throw new DataNotFoundException("Status Names Not Found...");
+        }
+        return object;
     }
     
     

@@ -31,11 +31,6 @@ public class UsersService {
       return usersRepository.save(users);
     }
     
-//    public Object findAllUsers()
-//    {
-//        return usersRepository.findAll();
-//    }
-    
     public Users findUserByUserId(int userId)
     {
         return usersRepository.findOne(userId);
@@ -48,9 +43,7 @@ public class UsersService {
     
     public Users userLogin(String email)
     {
-      /*  PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); 
-        String hashedPassword = passwordEncoder.encode(password);
-        System.out.println("encoded: " + hashedPassword);*/
+   
         return usersRepository.login(email);
     }
     
@@ -59,12 +52,6 @@ public class UsersService {
         return usersRepository.forgotPassword(email);
     }
     
-    
-//    public List<Users> findListOfUses()
-//    {
-//        return (List<Users>) usersRepository.findAll();
-//    }
-   
     public int updatePassword(String password, String email)
     {
         

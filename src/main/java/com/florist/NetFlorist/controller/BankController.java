@@ -35,7 +35,7 @@ public class BankController{
         
         if(bank == null)
         {
-            throw new DataNotFoundException("Invalid banking details");
+            throw new DataNotFoundException("Account Not Authorized..Verify your Credict Card Details...");
         }
         return bank;
     }
@@ -47,21 +47,14 @@ public class BankController{
     @ResponseBody
     public int updateBankBalance(@PathVariable int cardNo, @PathVariable double balance)
     {
-        int update = 0;
         
-        try{
-            update = bankService.updateBankBalance(cardNo, balance);
+         int update = bankService.updateBankBalance(cardNo, balance);
+         
+         if(update == 0)
+         {
+            throw new DataNotFoundException("Bank Balance Not updated...");
+         }
             
-            if(update != 0)
-            {
-                System.out.println("Account Balance Updated");
-            }else{
-                 System.out.println("Account Balance Not Updated");
-            }
-        }catch(Exception ex)
-        {
-            System.out.println("Error Message: " + ex.getMessage());
-        }
         return update;
     }
     

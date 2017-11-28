@@ -10,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-
-
 /**
  *
  * @author User
@@ -21,9 +19,8 @@ public class DataNotFoundExceptionMapper{
     @ExceptionHandler(DataNotFoundException.class)
     public ResponseEntity<ErrorMessage> dataNotFound(DataNotFoundException dd)
     {
-        ErrorMessage err = new ErrorMessage();
-        //err.setErrorCode(404);
-        err.setMessage(dd.getMessage());
-        return new ResponseEntity<ErrorMessage>(err, HttpStatus.NOT_FOUND);
+        ErrorMessage errorMessage = new ErrorMessage();
+        errorMessage.setMessage(dd.getMessage());
+        return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.NOT_FOUND);
     }
 }

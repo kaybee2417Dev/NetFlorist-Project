@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author User
  */
 @Controller
-public class NetFloristController {
+public class NetFloristMainController {
     
     
     @RequestMapping(value = "/", method = RequestMethod.GET)

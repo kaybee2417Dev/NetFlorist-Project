@@ -5,6 +5,7 @@
  */
 package com.florist.NetFlorist.controller;
 
+import com.florist.NetFlorist.exceptions.DataNotFoundException;
 import com.florist.NetFlorist.services.ProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,12 @@ public class ProvinceController {
     @ResponseBody
     public Object findAllProvinces()
     {
-        return provinceService.findAllProvinces();
+        Object object =  provinceService.findAllProvinces();
+        
+        if(object == null)
+        {
+            throw new DataNotFoundException("Provinces Not Found...");
+        }
+         return object;   
     }
 }

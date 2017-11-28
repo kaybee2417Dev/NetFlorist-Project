@@ -5,6 +5,7 @@
  */
 package com.florist.NetFlorist.controller;
 
+import com.florist.NetFlorist.exceptions.DataNotFoundException;
 import com.florist.NetFlorist.services.AddressTypesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,11 @@ public class AddressTypesController {
     @ResponseBody
     public Object findAllDeliveryTypes()
     {
-        return addressTypeService.findAllAddressTypes();
+        Object object = addressTypeService.findAllAddressTypes();
+        if(object == null)
+        {
+            throw new DataNotFoundException("Address Types Not Found...");
+        }
+        return object;
     }
 }

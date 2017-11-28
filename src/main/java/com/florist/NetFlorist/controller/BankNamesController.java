@@ -5,6 +5,7 @@
  */
 package com.florist.NetFlorist.controller;
 
+import com.florist.NetFlorist.exceptions.DataNotFoundException;
 import com.florist.NetFlorist.services.BankNamesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,11 @@ public class BankNamesController {
     @ResponseBody
     public Object findAllBankNames()
     {
-        return bankNameService.findAllBankNames();
+        Object object = bankNameService.findAllBankNames();
+        if(object == null)
+        {
+            throw new DataNotFoundException("Bank Names Not Found...");
+        }
+        return object;
     }
 }

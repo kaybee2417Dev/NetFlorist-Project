@@ -5,6 +5,7 @@
  */
 package com.florist.NetFlorist.controller;
 
+import com.florist.NetFlorist.exceptions.DataNotFoundException;
 import com.florist.NetFlorist.model.Category;
 import com.florist.NetFlorist.services.CategoryService;
 import java.sql.SQLException;
@@ -32,7 +33,12 @@ public class CategoryController{
     @ResponseBody
     public Object getAllRep()
     {
-        return categoryService.findAllCategories();
+        Object object = categoryService.findAllCategories();
+        if(object == null)
+        {
+            throw new DataNotFoundException("Category Not Deleted...");
+        }
+       return object; 
     }
   
     //========================Save Categories======================
@@ -40,14 +46,12 @@ public class CategoryController{
     @ResponseBody
     public Category saveCategory(@RequestBody Category category) throws SQLException
     {
-        Category category1 = new Category();
-        try{
-            category1 = categoryService.saveCategory(category);
-        }catch(Exception ex)
-        {
-            throw new SQLException(ex.getMessage());
-        }
+        Category category1 = categoryService.saveCategory(category);
         
+        if(category1 == null)
+        {
+            throw new DataNotFoundException("Category Not Saved...");
+        }
         return category1;         
     }
    
@@ -56,8 +60,13 @@ public class CategoryController{
     @ResponseBody
     public int deleteCategory(@PathVariable String name)
     {
-        int deleteRow = 0;
-        deleteRow = categoryService.deleteCategory(name);
+        int deleteRow = categoryService.deleteCategory(name);
+        
+        if(deleteRow != 1)
+        {
+            throw new DataNotFoundException("Category Not Deleted...");
+        }
+        
         return deleteRow;         
     }
     

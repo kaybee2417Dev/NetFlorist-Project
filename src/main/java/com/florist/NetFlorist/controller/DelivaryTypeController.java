@@ -5,6 +5,7 @@
  */
 package com.florist.NetFlorist.controller;
 
+import com.florist.NetFlorist.exceptions.DataNotFoundException;
 import com.florist.NetFlorist.services.DelivaryTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,13 @@ public class DelivaryTypeController {
     @ResponseBody
     public Object findAllDeliveryTypes()
     {
-        return deliveryTypeService.findAllDeliveryTypes();
+        Object object = deliveryTypeService.findAllDeliveryTypes();
+        if(object == null)
+        {
+            throw new DataNotFoundException("Address Types Not Found...");
+        }
+        
+        return object;
     }
     
 }

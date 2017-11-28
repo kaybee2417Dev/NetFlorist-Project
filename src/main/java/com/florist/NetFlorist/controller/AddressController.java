@@ -5,6 +5,7 @@
  */
 package com.florist.NetFlorist.controller;
 
+import com.florist.NetFlorist.exceptions.DataNotFoundException;
 import com.florist.NetFlorist.model.Address;
 import com.florist.NetFlorist.services.AddressService;
 import java.util.ArrayList;
@@ -32,22 +33,12 @@ public class AddressController {
     @ResponseBody
     public Address saveAddress(@RequestBody Address address)
     {
-        Address address1 = new Address();
-     
-        try{
-            
-            address1 = addressService.saveAddress(address);
-            if(address1.getAddressID() != null)
-            {
-                 System.out.println("Delivary saved: ");
-            }else{
-                 System.out.println("Delivary not saved: " );
-            }
-        }catch(Exception ex)
-        {
-            System.out.println("Delivary Error: " + ex.getMessage());
-        }
-        return address1;
+        Address addresses = addressService.saveAddress(address);
+          if(addresses == null)
+          {
+              throw new DataNotFoundException("Address Not Saved...");
+          }
+        return addresses;
     }
     
     //=====================Get Delivary based on order no============
@@ -55,6 +46,12 @@ public class AddressController {
     @ResponseBody
     public ArrayList<Address> viewByOrderNo(@PathVariable int orderno)
     {
-        return addressService.findAddressByOrderNo(orderno);
+        ArrayList<Address> addressList =  addressService.findAddressByOrderNo(orderno);
+        if(addressList == null)
+        {
+            throw new DataNotFoundException("Address Not Found...");
+        }
+        
+        return addressList;
     }
 }

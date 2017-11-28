@@ -28,21 +28,18 @@ public class UsersController {
     
     @Autowired
     private UsersService usersService;
-    
-   /* //========================Find All Customer/Admin======================
-    @RequestMapping(method = RequestMethod.GET, value="/view")
-    @ResponseBody
-    public Object findAllUsers()
-    {
-        return usersService.findAllUsers();
-    }*/
-    
+  
     //========================Find User Based on ID======================
     @RequestMapping(value = "/findUserByUserId/{userId}" , method = RequestMethod.GET)
     @ResponseBody
     public Users findUsersByUserId(@PathVariable int userId)
     {
-        return usersService.findUserByUserId(userId);
+        Users user = usersService.findUserByUserId(userId);
+        if(user == null)
+        {
+            throw new DataNotFoundException("User do not Exists...");
+        }
+        return user;
     }
     
     //========================Register  User======================
@@ -50,14 +47,13 @@ public class UsersController {
    @ResponseBody
     public Users registerUsers(@RequestBody Users users) throws Exception 
     {
-        Users user = new Users();
-        try{
-            user = usersService.saveUser(users);
-        }catch(Exception ex)
+        Users  user = usersService.saveUser(users);
+        if(user != null)
         {
-          throw new Exception(ex.getMessage());
-        }
-       return user;
+            return user;
+        }else{
+            throw new DataNotFoundException("User Not Registered...Email already in-User!!!");
+        }     
     }
     
     //========================User Login Using username and password======================
@@ -74,10 +70,10 @@ public class UsersController {
               return user;
            }else
            {
-               throw new DataNotFoundException("User Password Incorrect...");
+              throw new DataNotFoundException("User Password Incorrect...Try Again!!!");
            }
         }else{
-            throw new DataNotFoundException("Username Don't exist...");
+             throw new DataNotFoundException("User Email Don't exist...Try Again!!!");
         }
     }
     
@@ -92,7 +88,7 @@ public class UsersController {
             return user;
         }else
         {
-            throw new DataNotFoundException("Username Don't exist...");
+            throw new DataNotFoundException("User email Don't exist...Try Again");
         }
     }
     
@@ -107,7 +103,7 @@ public class UsersController {
             return update;
         }else
         {
-            throw new DataNotFoundException("Username Don't exist...");
+            throw new DataNotFoundException("User Password Not Updated...");
         }
     }
 }

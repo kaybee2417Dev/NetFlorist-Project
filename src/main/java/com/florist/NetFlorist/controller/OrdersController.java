@@ -5,6 +5,7 @@
  */
 package com.florist.NetFlorist.controller;
 
+import com.florist.NetFlorist.exceptions.DataNotFoundException;
 import com.florist.NetFlorist.model.Orders;
 import com.florist.NetFlorist.services.AddressService;
 import com.florist.NetFlorist.services.OrdersService;
@@ -28,30 +29,22 @@ public class OrdersController {
     @Autowired
     private OrdersService ordersServices;
     
-     @Autowired
+    @Autowired
     private AddressService addressService;
     
      //=========================Save an Order==========================
     @RequestMapping(value = "/saveOrders", method = RequestMethod.POST)
     @ResponseBody
-    public Orders saveOrder(@RequestBody Orders orders) throws Exception
+    public Orders saveOrder(@RequestBody Orders orders)
     {
-       Orders order1 = new Orders();
-        
-        try{
-            order1 = ordersServices.saveOrders(orders);
-           if(order1 != null)
-           {
-               System.out.println("Save Order");
-               
-           }else{
-               System.out.println("Save Not Order");
-           }
-        }catch(Exception ex){
-          throw new Exception(ex.getMessage());
+       Orders order = ordersServices.saveOrders(orders);
+           
+        if(order == null)
+        {
+            throw new DataNotFoundException("Order Not Saved...");
         }
        
-        return order1;
+        return order;
     }
     
      //===============Remove Order ==========================
@@ -59,7 +52,13 @@ public class OrdersController {
     @ResponseBody
     public Object findAllOrders()
     {
-        return ordersServices.findAllOrders();
+        
+        Object object =  ordersServices.findAllOrders();
+        if(object == null)
+        {
+            throw new DataNotFoundException("Orders not Found...");
+        }
+       return object;
     }
     
     //=================Update Order Status based on a orderno==========================
@@ -67,10 +66,13 @@ public class OrdersController {
     @ResponseBody
     public int updateOrderStatus(@PathVariable int orderId, @PathVariable String orderStatus )
     {
-          
-        int updated = 0;
-        updated = ordersServices.updateOrdersStatus(orderId, orderStatus);
-        return updated;
+       
+       int updated = ordersServices.updateOrdersStatus(orderId, orderStatus);
+       if(updated != 1)
+       {
+           throw new DataNotFoundException("Order Status Not Updated...");
+       }
+       return updated;
     }
     
     //=====================Remove Order Status==========================
@@ -78,13 +80,15 @@ public class OrdersController {
     @ResponseBody
     public int removeOrderStatu(@PathVariable int orderNo )
     {
-        int delete = 0;
+       int delete = ordersServices.deleteOrders(orderNo);
         
-        delete = ordersServices.deleteOrders(orderNo);
-
-        if(delete != 0)
-        {
-             addressService.deleteDelivary(orderNo);
+        if(delete != 1){
+            throw new DataNotFoundException("Order Not Deleted...");
+        }else{
+            if(delete == 1)
+            {
+                 addressService.deleteDelivary(orderNo);
+            }
         }
         return delete;
     }
@@ -94,7 +98,14 @@ public class OrdersController {
     @ResponseBody
     public ArrayList<Orders> viewByOrderNo(@PathVariable int orderno)
     {
-        return ordersServices.findOrdersByOrderNo(orderno);
+        ArrayList<Orders> orderList = ordersServices.findOrdersByOrderNo(orderno);
+        
+        if(orderList == null)
+        {
+            throw new DataNotFoundException("Orders Not Found...");
+        }
+        
+        return orderList;
     }
     
 }
