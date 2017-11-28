@@ -5,38 +5,39 @@
  */
 package com.florist.NetFlorist.controller;
 
-import com.florist.NetFlorist.model.Delivary;
-import com.florist.NetFlorist.services.DelivaryService;
+import com.florist.NetFlorist.model.Address;
+import com.florist.NetFlorist.services.AddressService;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author User
  */
-@Controller
-public class DelivaryController {
+@RestController
+@RequestMapping(value = "/address")
+public class AddressController {
     
     @Autowired
-    private DelivaryService delivaryService;
+    private AddressService addressService;
     
-    //********************************Save Delivary Detatils@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-    @RequestMapping(value = "/saveDelivary", method = RequestMethod.POST)
+    //**********************Save Delivary Detatils********************************
+    @RequestMapping(value = "/saveAddress", method = RequestMethod.POST)
     @ResponseBody
-    public Delivary saveDelivary(@RequestBody Delivary delivary)
+    public Address saveAddress(@RequestBody Address address)
     {
-        Delivary deliver = new Delivary();
+        Address address1 = new Address();
      
         try{
             
-            deliver = delivaryService.saveDelivary(delivary);
-            if(deliver.getDelivaryID() != null)
+            address1 = addressService.saveAddress(address);
+            if(address1.getAddressID() != null)
             {
                  System.out.println("Delivary saved: ");
             }else{
@@ -46,15 +47,14 @@ public class DelivaryController {
         {
             System.out.println("Delivary Error: " + ex.getMessage());
         }
-        return deliver;
+        return address1;
     }
     
     //=====================Get Delivary based on order no============
-    @RequestMapping(value = "/viewdelivary/{orderno}", method = RequestMethod.GET)
+    @RequestMapping(value = "/findAddressByOrderNo/{orderno}", method = RequestMethod.GET)
     @ResponseBody
-    public ArrayList<Delivary> viewByOrderNo(@PathVariable int orderno)
+    public ArrayList<Address> viewByOrderNo(@PathVariable int orderno)
     {
-        return delivaryService.viewByOrderNo(orderno);
+        return addressService.findAddressByOrderNo(orderno);
     }
-    
 }

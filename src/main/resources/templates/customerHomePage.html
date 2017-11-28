@@ -37,11 +37,11 @@
      
     </head>
 
-    <body ng-controller="CustomerProductController">
+    <body ng-controller="CustomerController">
         <div >
   
             <ul>
-               <li><a href="#home">Customer Site: {{users.fname}} {{users.lname}}</a></li>
+               <li><a href="#home">Customer Site: {{users.name}} {{users.surname}}</a></li>
                <li><a href="./customerOrders.html">Track Order</a></li>
                <li><a href="./login.html">Log Out</a></li>
             </ul>
@@ -170,7 +170,7 @@
                     </div>
                     <div class="modal-body" style="padding:40px 70px;">
                         
-                         <p> Delivery Information</p>
+                         <p> Delivery Address Information</p>
                                 
                                <p>   
                                     <label for="date" class="date" data-icon="u">Select Delivery Date:</label>
@@ -178,9 +178,9 @@
                                </p> 
                          
                                 <p> 
-                                    <label for="delivaryType" class="delivaryType"> Delivery Type: </label>
-                                    <select name="delivaryType" id="delivaryType" ng-model="delivaryType">
-                                        <option ng-repeat="delivaryType in delivariestype" value="{{delivaryType.name}}">{{delivaryType.name}} </option>
+                                    <label for="addressType" class="addressType"> Address Type: </label>
+                                    <select name="addressType" id="addressType" ng-model="addressType">
+                                        <option ng-repeat="addressType in addressTypes" value="{{addressType.name}}">{{addressType.name}} </option>
                                     </select>
                                </p>  
                              

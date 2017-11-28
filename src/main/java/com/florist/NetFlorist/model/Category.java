@@ -27,7 +27,7 @@ import javax.validation.constraints.Size;
 @Table(name = "category")
 @NamedQueries({
     @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")
-    , @NamedQuery(name = "Category.findByCatID", query = "SELECT c FROM Category c WHERE c.catID = :catID")
+    , @NamedQuery(name = "Category.findByCatID", query = "SELECT c FROM Category c WHERE c.categoryID = :categoryID")
     , @NamedQuery(name = "Category.findByName", query = "SELECT c FROM Category c WHERE c.name = :name")})
 public class Category implements Serializable {
 
@@ -35,29 +35,29 @@ public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "catID")
-    private Integer catID;
+    @Column(name = "categoryID")
+    private Integer categoryID;
     @Column(name = "name")
     private String name;
 
     public Category() {
     }
 
-    public Category(Integer catID) {
-        this.catID = catID;
+    public Category(Integer categoryID) {
+        this.categoryID = categoryID;
     }
 
-    public Category(Integer catID, String name) {
-        this.catID = catID;
+    public Category(Integer categoryID, String name) {
+        this.categoryID = categoryID;
         this.name = name;
     }
 
-    public Integer getCatID() {
-        return catID;
+    public Integer getCategoryID() {
+        return categoryID;
     }
 
-    public void setCatID(Integer catID) {
-        this.catID = catID;
+    public void setCategoryID(Integer categoryID) {
+        this.categoryID = categoryID;
     }
 
     public String getName() {

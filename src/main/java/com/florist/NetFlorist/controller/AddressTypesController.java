@@ -5,31 +5,28 @@
  */
 package com.florist.NetFlorist.controller;
 
-import com.florist.NetFlorist.services.OrderStatusService;
+import com.florist.NetFlorist.services.AddressTypesService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author User
  */
-@Controller
-@RequestMapping(value = "/orderStatus")
-public class OrderStatusController {
+@RestController
+@RequestMapping(value = "/addressTypes")
+public class AddressTypesController {
+     @Autowired
+    private AddressTypesService addressTypeService;
     
-    @Autowired
-    private OrderStatusService orderStatusService;
-    
-    
-    @RequestMapping(method = RequestMethod.GET, value = "/findAllOrderStatus")
+    //=======================Get All Address Types ==========================
+    @RequestMapping(value="/findAllAddressTypes", method = RequestMethod.GET)
     @ResponseBody
-    public Object viewOrderStatus()
+    public Object findAllDeliveryTypes()
     {
-       return orderStatusService.findAllOrderStatus();
+        return addressTypeService.findAllAddressTypes();
     }
-    
-    
 }

@@ -35,12 +35,9 @@ public class Orderstatus implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "statusID")
     private Integer statusID;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 15)
+    
     @Column(name = "name")
     private String name;
 
@@ -72,29 +69,4 @@ public class Orderstatus implements Serializable {
         this.name = name;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (statusID != null ? statusID.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Orderstatus)) {
-            return false;
-        }
-        Orderstatus other = (Orderstatus) object;
-        if ((this.statusID == null && other.statusID != null) || (this.statusID != null && !this.statusID.equals(other.statusID))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.florist.NetFlorist.model.Orderstatus[ statusID=" + statusID + " ]";
-    }
-    
 }

@@ -7,8 +7,8 @@ package com.florist.NetFlorist.controller;
 
 import com.florist.NetFlorist.model.Category;
 import com.florist.NetFlorist.services.CategoryService;
+import java.sql.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,65 +21,43 @@ import org.springframework.web.bind.annotation.RestController;
  * @author User
  */
 @RestController
+@RequestMapping(value = "/category")
 public class CategoryController{
      
     @Autowired
-    private CategoryService catService;
+    private CategoryService categoryService;
     
     //========================Find All Categories======================
-    @RequestMapping(value = "/showAllCat", method = RequestMethod.GET)
+    @RequestMapping(value = "/findAllCategories", method = RequestMethod.GET)
     @ResponseBody
     public Object getAllRep()
     {
-        return catService.viewAllCategories();
+        return categoryService.findAllCategories();
     }
-    
-    
-    //========================SaveCategories======================
-    @RequestMapping(value = "/saveCat", method = RequestMethod.POST)
+  
+    //========================Save Categories======================
+    @RequestMapping(value = "/saveCategory", method = RequestMethod.POST)
     @ResponseBody
-    public Category saveCategory(@RequestBody Category category)
+    public Category saveCategory(@RequestBody Category category) throws SQLException
     {
-        Category cat = new Category();
+        Category category1 = new Category();
         try{
-            cat = catService.saveCategory(category);
-                    
-            if(cat != null)
-            {
-                System.out.println(" Category saved");
-            }else
-            {
-                System.out.println(" Category Not saved");
-            }
+            category1 = categoryService.saveCategory(category);
         }catch(Exception ex)
         {
-            System.out.println("Error Message: " + ex.getMessage());
+            throw new SQLException(ex.getMessage());
         }
         
-        return cat;         
+        return category1;         
     }
    
-    //========================Delete Categories based on name======================
-    @RequestMapping(value = "/deteleCat/{name}", method = RequestMethod.DELETE)
+    //========================Delete Categories based on category Id======================
+    @RequestMapping(value = "/deleteCategory/{name}", method = RequestMethod.DELETE)
     @ResponseBody
     public int deleteCategory(@PathVariable String name)
     {
         int deleteRow = 0;
-        try{
-            deleteRow = catService.removeCategory(name);
-                    
-            if(deleteRow != 0)
-            {
-                System.out.println("Category Deleted");
-            }else
-            {
-                System.out.println(" Category Not Deleted");
-            }
-        }catch(Exception ex)
-        {
-            System.out.println("Error Message: " + ex.getMessage());
-        }
-        
+        deleteRow = categoryService.deleteCategory(name);
         return deleteRow;         
     }
     

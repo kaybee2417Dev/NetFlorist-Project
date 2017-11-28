@@ -7,7 +7,6 @@ package com.florist.NetFlorist.services;
 
 import com.florist.NetFlorist.model.Product;
 import com.florist.NetFlorist.repositories.ProductRepository;
-import java.io.Serializable;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,41 +21,35 @@ public class ProductService{
     private ProductRepository productRepository;
     
     
-    public Object viewAllProduct()
+    public Object findAllProduct()
     {
         return productRepository.findAll();
     }
     
     public Product saveProduct(Product product)
     {
-        Product pro = new Product();
-        pro.setPID(product.getPID());
-        pro.setName(product.getName());
-        pro.setPrice(product.getPrice());
-        pro.setCategory(product.getCategory());
-       pro.setImage(product.getImage());
         return productRepository.save(product);
     }
     
-    public int deleteProduct(String name)
+    public int deleteProduct(int productId)
     {
-        return productRepository.deleteProduct(name);
+        return productRepository.deleteProduct(productId);
     }
 
-    public int updateProduct(int pid, String name, String cat, double price)
+    public int updateProduct(int productId, String name, String cat, double price)
     {
         
-        return productRepository.upddateProduct(pid, name, cat, price);
+        return productRepository.updateProduct(productId, name, cat, price);
     }
     
-    public ArrayList<Product> viewCategory(String category)
+    public ArrayList<Product> findProductByCategory(String category)
     {
-        return productRepository.viewByCategory(category);
+        return productRepository.findProductByCategory(category);
     }
     
-    public Product getProductsById(int pid)
+    public Product findProductByProductId(int productId)
     {
-        return productRepository.findOne(pid);
+        return productRepository.findOne(productId);
     }
     
 }

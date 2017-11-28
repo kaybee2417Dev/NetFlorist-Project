@@ -14,8 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
-
 
 /**
  *
@@ -25,7 +23,7 @@ import javax.validation.constraints.Size;
 @Table(name = "product")
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
-    , @NamedQuery(name = "Product.findByPID", query = "SELECT p FROM Product p WHERE p.pID = :pID")
+    , @NamedQuery(name = "Product.findByProductID", query = "SELECT p FROM Product p WHERE p.productID = :productID")
     , @NamedQuery(name = "Product.findByName", query = "SELECT p FROM Product p WHERE p.name = :name")
     , @NamedQuery(name = "Product.findByCategory", query = "SELECT p FROM Product p WHERE p.category = :category")
     , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")})
@@ -34,8 +32,8 @@ public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pID")
-    private Integer pID;
+    @Column(name = "productID")
+    private Integer productID;
     @Column(name = "name")
     private String name;
     @Column(name = "category")
@@ -48,25 +46,25 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(Integer pID) {
-        this.pID = pID;
+    public Product(Integer productID) {
+        this.productID = productID;
     }
 
-    public Product(Integer pID, String name, String category, double price, String image) 
+    public Product(Integer productID, String name, String category, double price, String image) 
     {
-        this.pID = pID;
+        this.productID = productID;
         this.name = name;
         this.category = category;
         this.price = price;
         this.image = image;
     }
 
-    public Integer getPID() {
-        return pID;
+    public Integer getProductID() {
+        return productID;
     }
 
-    public void setPID(Integer pID) {
-        this.pID = pID;
+    public void setProductID(Integer productID) {
+        this.productID = productID;
     }
 
     public String getName() {

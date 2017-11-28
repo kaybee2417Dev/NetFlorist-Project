@@ -19,7 +19,7 @@ and open the template in the editor.
            
             <div class="container" >
                <ul>
-                    <li><a href="#home">Admin Panel {{users.fname}} {{users.lname}}</a></li>
+                    <li><a href="#home">Administrator Panel </a></li>
                     <li><a href="./adminHomePage.html">Admin Home</a></li>
                     <li><a href="./addProduct.html">Add Product</a></li>
                     <li><a href="./addCategory.html">Add Category</a></li>
@@ -35,31 +35,31 @@ and open the template in the editor.
                        <img src="./css/net.jpg" style="width:150;height:50; " />
                             
                             <p> 
-                               <label for="pCat" class="pCat"  > Product Category:</label>
-                               <select name="pCat" id="pCat" ng-model="pid" ng-click="showData(pid)" >
-                                   <option ng-repeat="product in products" value="{{product.pid}}">{{product.name}} </option>
+                               <label for="pCat" class="pCat"> Product Name:</label>
+                               <select name="pCat" id="pCat" ng-model="productId" ng-click="findProductById(productId)" >
+                                   <option ng-repeat="product in products" value="{{product.productID}}">{{product.name}}</option>
                                 </select>
                             </p>  
                          
                             
                             <p> 
                                 <label for="pName" class="pName" >Product Name:</label>
-                                <input id="pName" ng-model="prod.name" name="pName" required="true" type="text"/>
+                                <input id="pName" ng-model="product.name" name="pName" required="true" type="text"/>
                             </p>
                               
                             <p> 
                                 <label for="pCat" class="pCat"  > Product Category:</label>
-                                <input id="pCat" ng-model="prod.category" name="pCat" required="true" type="text" /> 
+                                <input id="pCat" ng-model="product.category" name="pCat" required="true" type="text" /> 
                             </p>
                                 
                             <p> 
                                 <label for="productPrice" class="yourPrice" >Product Price: </label>
-                                <input id="productPrice" ng-model="prod.price" name="productPrice" required="true" type="text" />
+                                <input id="productPrice" ng-model="product.price" name="productPrice" required="true" type="text" />
                             </p>
      
                             <p class="signin button"> 
-                                <input type="submit" ng-click="editProduct(prod.pid)" value="Update Product"/> 
-                            </p>
+                                <input type="button" id="update" value="Update Product"  class="update" ng-click="editProduct(product.productID)"/> 
+                           </p>
    
                      </form>
                </div>  

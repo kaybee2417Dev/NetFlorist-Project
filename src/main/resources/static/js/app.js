@@ -1,14 +1,18 @@
 var netFloristModule = angular.module("NetFloristApp",['ngRoute']);
 netFloristModule.config(["$routeProvider","$locationProvider",function($routeProvider) {
-
-    
-    $routeProvider
+  $routeProvider
     .when('/login', {
        templateUrl :'/login.html',
        controller : 'LoginController'
    }).when('/register',{
        templateUrl :'/register.html',
        controller : 'RegisterController'
+   }).when('/forgotPassword',{
+       templateUrl :'/forgotPassword.html',
+       controller : 'ForgotPasswordController'
+   }).when('/newPassword',{
+       templateUrl :'/newPassword.html',
+       controller : 'ForgotPasswordController'
    }).when('/adminHomePage',{
        templateUrl :'/adminHomePage.html',
        controller : 'ProductController'
@@ -29,7 +33,7 @@ netFloristModule.config(["$routeProvider","$locationProvider",function($routePro
        controller : 'OrderController'
    }).when('/customerHomePage',{
        templateUrl :'/customerHomePage.html',
-       controller : 'CustomerProductController'
+       controller : 'CustomerController'
    }).when('/customerOrders',{
        templateUrl :'/customerOrders.html',
        controller : 'OrderController'
@@ -44,7 +48,7 @@ netFloristModule.controller("RegisterController",['$scope','$http',function($sco
           
         //######################## Registering Customer with a role of Customer  #####################################
       
-        $scope.registerCustomer = function (num)
+        $scope.registerUsers = function (num)
         {
             var  role = "customer";
            
@@ -53,33 +57,31 @@ netFloristModule.controller("RegisterController",['$scope','$http',function($sco
             }
            
             var user = {
-                        "fname" :$scope.fname,
-                        "lname" :$scope.lname,
+                        "name" :$scope.fname,
+                        "surname" :$scope.lname,
                         "email" : $scope.email,
                         "password" : $scope.password,
-                        "mobileNo" : $scope.mobileNo,
+                        "mobile" : $scope.mobileNo,
                         "role":role
                     };
                     
-            if(user.fname !== undefined)
+            if(user.name !== undefined)
             {
-                if(user.lname !== undefined)
+                if(user.surname !== undefined)
                 {
-                    if(user.email !== undefined)
-                    {
-                        if(user.mobileNo !== undefined)
+                  if(user.mobile !== undefined)
                         {
                             if(user.password !== undefined)
                             {
                                // console.log(user);
-                                $http.post('/register',user).then(function(response) {
+                                $http.post('/user/register',user).then(function(response) {
                                         console.log(response.data);
-                                        if(response.data.cID !== 0)
+                                        if(response.data.userID !== 0)
                                         {
-                                            //console.log("Registerd");
-                                            alert("User Registered...");
+                                           alert("User Registered...");
+                                           window.location = './login.html';
                                         }else{
-                                            console.log("Not Registered");
+                                            console.log("User Not Registered");
                                         }
                                 }).catch(function (error){
                                     alert("User Not Registered...Email Already Exists...");
@@ -91,13 +93,9 @@ netFloristModule.controller("RegisterController",['$scope','$http',function($sco
                             }
                         }else
                         {
-                            alert("Enter User Email...");
+                            alert("Enter User Mobile...");
                         }
                     }else
-                    {
-                        alert("Enter User Email...");
-                    }
-                }else
                 {
                     alert("Enter User Last Name...");
                 }
@@ -123,21 +121,21 @@ netFloristModule.controller("LoginController",function($scope,$http){
             {
                 if(password !== undefined)
                 {
-                    var userid = 0;
-                   $http.get('/login/'+ username + '/'+ password + '').then(function(response){
-                        console.log(response.data.role);
-		               if(response.data.role === "customer")
+                    var userId = 0;
+                   $http.get('/user/login/'+ username + '/'+ password + '').then(function(response){
+                               if(response.data.role === "customer")
                                {
-                                  userid = response.data.cid;
-                                  window.location = './customerHomePage.html?userID=' + userid;
+                                  userId = response.data.userID;
+                                  window.location = './customerHomePage.html?userId=' + userId;
                                }else if(response.data.role === "Admin")
                                {
-                                 userid = response.data.cid;
-                                 window.location = './adminHomePage.html?userID=' + userid;
+                                 
+                                 userId = response.data.userID;
+                                 window.location = './adminHomePage.html?userId=' + userId;
                                }
-		        }).catch(function(error){
+		        });/*.catch(function(error){
                                alert("Verify your crediantials...Try Again!!!");
-                        });
+                        });*/
                 }else
                 {
                    alert("Enter Password...");
@@ -149,7 +147,53 @@ netFloristModule.controller("LoginController",function($scope,$http){
             
        };      
 });
-
+netFloristModule.controller("ForgotPasswordController",function($scope,$http){
+    $http.defaults.headers.post["Content-Type"] = "application/json";  
+    //######################## Forgot  Password #####################################
+    
+        
+        $scope.forgotPassword = function ()
+        {
+           var email =  $scope.username;
+            if(username !== undefined)
+            {
+               
+                $http.get('/user/forgotPassword/' + email + '').then( function (response){
+                    $scope.user = response.data;
+                    window.location = './newPassword.html?email=' + email;
+                }).catch(function(error){
+                    alert("User Email Dont Exist...Try Again or Register!!!");
+                 });
+           
+            }else
+            {
+               alert("Enter Username...");
+            }
+            
+       };   
+       
+       $scope.newPassword = function (){
+           var password = $scope.password;
+           var newPassword = $scope.password1;
+            var Data = {};
+            window.location.search.replace(/\?/,'').split('&').map(function(o){ Data[o.split('=')[0]]= o.split('=')[1];});
+            var email = Data.email;
+   
+           if(password === newPassword)
+           {
+               $http.put('/user/newPassword/' + password + '/' +email+'').then(function(response){
+                    alert("User Password Upated...");
+                    window.location = './login.html';
+                    console.log(password + " " + newPassword + " " + email);
+               }).catch(function (error){
+                   alert("Password Not Upated...");
+               });
+            }else
+           {
+               alert("Passwords Dont Match....");
+           }
+        };
+});
 
 netFloristModule.controller("ProductController",function($scope,$http){
    
@@ -157,38 +201,38 @@ netFloristModule.controller("ProductController",function($scope,$http){
     //######################## Get UserID And User Details #####################################
     var Data = {};
     window.location.search.replace(/\?/,'').split('&').map(function(o){ Data[o.split('=')[0]]= o.split('=')[1];});
-    var userID = Data.userID;
-    
-    $http.get('/findUser/' + userID + '').then(function (response) {
-        $scope.users = response.data;
-       // console.log(response.data);
-        });
+    var userId = Data.userId;
+   
+    $http.get('/user/findUserByUserId/' + userId + '').then(function (response) {
+        $scope.user = response.data;
+      });
     //######################## Retrieve Products  #####################################
-    $http.get('/viewproduct').then(function (response) {
-      //console.log(response.data);
-        $scope.products = response.data;});
-        console.log($scope.products);
+    $http.get('/product/findAllProducts').then(function (response) {
+       $scope.products = response.data;
+       
+    });
+        
+        
        //######################## Retrieve Categories  #####################################
-        $http.get('/showAllCat').then(function (response) {
+        $http.get('/category/findAllCategories').then(function (response) {
         $scope.categories = response.data;
-       // console.log(response.data);
+       
         });
         
-       $scope.viewProducts = function ()
+      /* $scope.viewProducts = function ()
         {
-              $http.get('/viewproduct').then(function(response){
+              $http.get('/product/findAllProducts').then(function(response){
 		           
                            $scope.products = response.data;
-		         });
+	});
        };    
-       
-        //######################## Admin Remove Product with Product name   #####################################
-        $scope.removeProduct = function (name)
+       */
+        //######################## Admin Delete Product with Product productID   #####################################
+        $scope.deleteProduct = function (productId)
         {
-
-            $http.delete('/deleteproduct/' + name + '').then(function(response){
-              //  console.log(response);
-                if(response.data !== 0)
+           
+            $http.delete('/product/deleteProduct/' + productId + '').then(function(response){
+               if(response.data !== 0)
                 {
                    alert("Product has been Deleted");
                 }else{
@@ -197,34 +241,34 @@ netFloristModule.controller("ProductController",function($scope,$http){
                 }
             });
         };
-        //######################## Retrieve Product based on a ID  #####################################
+        //######################## Find Product based on a Product ID  #####################################
         
-        $scope.showData = function (pid)
+        $scope.findProductById = function (productId)
         {
-           $http.get('/findProduct/' + pid + '').then(function (response) {
-            $scope.prod = response.data;
-           });
+           $http.get('/product/findProductById/' + productId + '').then(function (response) {
+            $scope.product = response.data;
+            });
        };
        
-         //######################## Edit Product with Product ID  #####################################
-        $scope.editProduct = function (pid)
+         //######################## Update Product based on Product Id Product ID  #####################################
+        $scope.editProduct = function (productId)
         {
-            var name = $scope.prod.name;
-            var cat = $scope.prod.category;
-            var price = $scope.prod.price;
-            
+            var name = $scope.product.name;
+            var cat = $scope.product.category;
+            var price = $scope.product.price;
+                        
             if(name !== undefined)
             {
                 if( price !== undefined){
                     
-                    $http.put('/update/' + pid + '/' + name + '/' + cat + '/'+price+'').then(function(response){
+                    $http.put('/product/updateProduct/' + productId + '/' + name + '/' + cat + '/'+price+'').then(function(response){
             
                         if(response.data !== 0)
                         {
                             alert("Product has been Updated");
                         }else
                         {
-                            alert("Product Not Updated!..Product Name exists..!!!");
+                           alert("Product Not Updated!..Product Name exists..!!!");
                         }
                     }); 
                 }else
@@ -235,7 +279,6 @@ netFloristModule.controller("ProductController",function($scope,$http){
                 alert("Enter Product Name...");
             }
         };
-
 });
 
 
@@ -245,7 +288,7 @@ netFloristModule.controller("AddProductController",function($scope,$http){
          
            
          //######################## Retrieve Category #####################################
-        $http.get('/showAllCat').then(function (response) {
+        $http.get('/category/findAllCategories').then(function (response) {
         $scope.categories = response.data;
          });
      
@@ -294,15 +337,13 @@ netFloristModule.controller("AddProductController",function($scope,$http){
              if(product.price !== undefined)
             {
                if(product.category !== undefined)
-                        {
-                              $http.post('/saveproduct',product).then(function(response){
+                    {
+                       $http.post('/product/saveProduct',product).then(function(response){
 
-                                if(response.data.pID !== 0)
-                                {
-                                      alert("Product Added...");
-                                }else{
-                                    alert("Product Not Added");
-                                }
+                            if(response.data.pID !== 0)
+                            {
+                                alert("Product Added...");
+                            }
                             }).catch(function(error){
                                alert("Product Not Added...Product Name!!!");
                         });;
@@ -317,10 +358,7 @@ netFloristModule.controller("AddProductController",function($scope,$http){
          }else{
              alert("Enter Product Name...");
          }
-
-           
-        };   
-
+  };   
 });
 
 netFloristModule.controller("CategoryController",function($scope,$http){
@@ -336,15 +374,14 @@ netFloristModule.controller("CategoryController",function($scope,$http){
            };
           
           if(cat.name !== undefined){
-               $http.post('/saveCat',cat ).then(function(response){
+               $http.post('/category/saveCategory',cat ).then(function(response){
                      
                 if(response.data.catcatID !== 0)
                 {
                     alert("Category Added...");
-                   
-                }else{
-                    alert("Category Not Added...");
                 }
+            }).catch(function (error){
+                alert("Category Not Added...");
             });
           }else
           {
@@ -358,7 +395,7 @@ netFloristModule.controller("CategoryController",function($scope,$http){
         {
             var name = $scope.name;
             if( name !== undefined){
-                 $http.delete('/deteleCat/' + name + '').then(function(response){
+                 $http.delete('/category/deleteCategory/' + name + '').then(function(response){
                 
                     if(response.data !== 0)
                     {
@@ -371,42 +408,40 @@ netFloristModule.controller("CategoryController",function($scope,$http){
             {
                alert("Enter Category Name to be deleted...");
             }
-           
-        };
+         };
 });
 
-netFloristModule.controller("CustomerProductController", function ($scope, $http){
+netFloristModule.controller("CustomerController", function ($scope, $http){
    $http.defaults.headers.post["Content-Type"] = "application/json";  
    //######################## Get UserID #####################################
     var Data = {};
     window.location.search.replace(/\?/,'').split('&').map(function(o){ Data[o.split('=')[0]]= o.split('=')[1];});
-    var userID = Data.userID;
-  
-    $http.get('/findUser/' + userID + '').then(function (response) {
+    var userId = Data.userId;
+    
+    $http.get('/user/findUserByUserId/' + userId + '').then(function (response) {
         $scope.users = response.data;
-        
+        console.log( $scope.users);
         });
         
-    //######################## Retrieve Categories #####################################
-    $http.get('/showAllCat').then(function (response) {
+   //######################## Find All Categories #####################################
+    $http.get('/category/findAllCategories').then(function (response) {
         $scope.categories = response.data;
         
         });
         
         //######################## Retrieve Products  #####################################
-         $http.get('/viewproduct').then(function(response){
-		               
-                               $scope.products = response.data;
+         $http.get('/product/findAllProducts').then(function(response){
+            $scope.products = response.data;
 	 });
    
       $scope.searchCategory = function(evnt, catName){
                
           
-            $http.get('/viewByCategory/' + catName + '').then(function(response){
+            $http.get('/category/findAllCategories/' + catName + '').then(function(response){
 		
                 $scope.category = response.data;
                 
-                 var i, tabcontent, tablinks;
+                var i, tabcontent, tablinks;
                 tabcontent = document.getElementsByClassName("tabcontent");
                 for (i = 0; i < tabcontent.length; i++) {
                     tabcontent[i].style.display = "none";
@@ -425,14 +460,15 @@ netFloristModule.controller("CustomerProductController", function ($scope, $http
        $scope.CartAmount = 0.0;
        $scope.addToCart = function(products)
        {
-         var checkProducts = checkProductsInCart(products.pid);
+           console.log(products.productID);
+         var checkProducts = checkProductsInCart(products.productID);
           if(checkProducts === null)
            {
                amount = 1 * products.price;
             
                 $scope.cartItems.push({ name : products.name, 
                 quantity: 1, 
-                product_id : products.pid, 
+                productId : products.productID, 
                 price : products.price,
                 category : products.category,
                 image: products.image,
@@ -464,7 +500,7 @@ netFloristModule.controller("CustomerProductController", function ($scope, $http
        //######################## Check if product exist in the database  #####################################
       function checkProductsInCart(id){
          for(var i=0; i < $scope.cartItems.length; i++){
-           if($scope.cartItems[i].product_id === id){
+           if($scope.cartItems[i].productId === id){
                 return $scope.cartItems[i];
             }
         }
@@ -526,18 +562,18 @@ netFloristModule.controller("CustomerProductController", function ($scope, $http
            
        };
        
-           $http.get('/viewDelivaryType').then(function(response){
-                $scope.delivariestype = response.data;
+         $http.get('/addressTypes/findAllAddressTypes').then(function(response){
+                $scope.addressTypes = response.data;
 	 });
          
-         $http.get('/viewPrivences').then(function(response){
+         $http.get('/province/findAllProvinces').then(function(response){
                 
                  $scope.provinces = response.data;
 	 });
 
          //######################## Retrieve Bank Names  #####################################
          
-         $http.get('/viewBankNames').then(function(response){
+         $http.get('/bankNames/findAllBankNames').then(function(response){
                 $scope.bankNames = response.data;
 	 });
          
@@ -554,39 +590,39 @@ netFloristModule.controller("CustomerProductController", function ($scope, $http
                 {
                     if(bankName !== undefined)
                     {
-                        $http.get('/searchAccount/' + cardNo + '/'+ cardHolder + '/' + bankName).then(function(response){
+                        $http.get('/bank/findBankAccount/' + cardNo + '/'+ cardHolder + '/' + bankName).then(function(response){
                             
                             $scope.banking = response.data;
-
+                            console.log( $scope.banking);
                             if($scope.banking.bankID !== undefined)
                             {
                                 var bankAmount = $scope.banking.balance;
                                 var bankBalance = 0.0;
                                 var cardAmount = $scope.CartAmount;
                                 var bankCardNo = $scope.banking.cardno;
-                                var bankid = $scope.banking.bankID;
+                                var bankId = $scope.banking.bankID;
 
-                                 if(bankAmount < cardAmount)
+                                if(bankAmount < cardAmount)
                                 {
                                   alert("insufficient Funds in your Bank Account!! Order can not be Processed...");
                                 }else{
 
                                     bankBalance = bankAmount - cardAmount;
-                                    $http.put('/updateAccount/' +cardNo+ '/' +bankBalance+ '').then(function(response){
+                                    $http.put('/bank/updateBankBalance/' +cardNo+ '/' +bankBalance+ '').then(function(response){
                                     
                                     }); 
 
                                     var minNumber = 0; // The minimum number you want
                                     var maxNumber = 500; // The maximum number you want
                                     var randomnumber = Math.floor(Math.random() * (maxNumber + 1) + minNumber);
-                                    var orderno = randomnumber + bankCardNo + randomnumber + bankid;
+                                    var orderno = randomnumber + bankCardNo + randomnumber + bankId;
 
                                     var address = {
                                         "orderno": orderno,
                                         "name": $scope.name,
                                         "surname": $scope.surname,
                                         "email":$scope.email,
-                                        "delivarytype": $scope.delivaryType,
+                                        "addresstype": $scope.addressType,
                                         "contacts": $scope.contacts,
                                         "street": $scope.street,
                                         "city":$scope.city,
@@ -599,7 +635,7 @@ netFloristModule.controller("CustomerProductController", function ($scope, $http
                                         {
                                             if(address.email !== undefined)
                                             {
-                                                if(address.delivarytype !== undefined)
+                                                if(address.addresstype !== undefined)
                                                 {
                                                     if(address.contacts !== undefined)
                                                     {
@@ -613,34 +649,37 @@ netFloristModule.controller("CustomerProductController", function ($scope, $http
 
                                                                     var name = $scope.cartItems[x].name;
                                                                     var quantity = $scope.cartItems[x].quantity;
-                                                                    var product_id = $scope.cartItems[x].product_id;
+                                                                    var productId = $scope.cartItems[x].productId;
                                                                     var price =  $scope.cartItems[x].price;
                                                                     var category = $scope.cartItems[x].category;
                                                                     var image= $scope.cartItems[x].image;
-                                                                   
-                                                                    var orderData = {
+                                                                  
+                                                                      var orderData = {
                                                                       "orderstatus": "New Order",
                                                                       "orderamount": $scope.CartAmount ,
-                                                                      "cID": userID,
+                                                                      "userID": userId,
                                                                       "orderno": orderno,
                                                                       "delivarydate":$scope.date,
                                                                       "name":name,
                                                                       "quantity":quantity,
-                                                                      "pid":product_id,
+                                                                      "productID":productId,
                                                                       "price":price,
                                                                       "category":category,
                                                                       "image":image
                                                                   };
 
                                                                  
-                                                                  $http.post('/saveOrder',orderData).then( function (response){
+                                                                  $http.post('/orders/saveOrders',orderData).then( function (response){
+                                                                      
+                                                                  }).catch(function (error){
+                                                                      alert("Order Not Processed...");
                                                                   });
                                                                 }
-                                                                $http.post('/saveDelivary',address).then(function(response){
+                                                                $http.post('/address/saveAddress',address).then(function(response){
 
                                                                  });
-                                                                      alert("Order Processed...");
-                                                                     alert("Order Number: " + orderno);
+                                                                     alert("Order Processed...");
+                                                                     alert("Order Number:..." + orderno);
                                                                 }else{
                                                                     alert("Select Recipient Province...");
                                                                 }
@@ -673,11 +712,10 @@ netFloristModule.controller("CustomerProductController", function ($scope, $http
                                          alert("Enter Recipient Name...");
                                      }
                                 }
-                             }else{
-                                 console.log("Account Not Authorized");
-                                 alert("Account Not Authorized..Verify your Credict Card Details...");
-                             }              
+                             }            
 
+                        }).catch(function (error){
+                            alert("Account Not Authorized..Verify your Credict Card Details...");
                         });
                     }else
                     {
@@ -716,26 +754,35 @@ netFloristModule.controller("OrderController",function($scope,$http){
    
     $http.defaults.headers.post["Content-Type"] = "application/json";  
     
-    //########################  Retrieve Orders#####################################
-         
-    $http.get('/viewOrder').then(function(response){
-                
-                $scope.orders = response.data;
+        //########################  Retrieve Orders#####################################
+
+        $http.get('/orders/findAllOrders').then(function(response){
+               $scope.orders = response.data;
+
         });
-         
+        
+        /*$scope.findUser = function (userId){
+        //######################## Find User By userID ######################################
+         $http.get('/users/findUserByUserId/' + userId ).then(function(response){
+                $scope.user = response.data;
+                console.log($scope.user);
+         });
+        };*/
        
         //########################  Retrieve Order Statues #####################################
          
-         $http.get('/viewOrderStatus').then(function(response){
-                
+         $http.get('/orderStatus/findAllOrderStatus').then(function(response){
                 $scope.orderStatus = response.data;
+               
  	 });
          
+     
          //########################  Admin Update Status Order Using Order ID #####################################
          
-         $scope.updateOrder = function(orderid, status)
+         $scope.updateOrderStatus = function(orderId, orderStatus)
          {
-              $http.put('/editOrderStatus/' + orderid + '/' + status + '').then(function(response){
+             
+             $http.put('/orders/updateOrderStatus/' + orderId + '/' + orderStatus + '').then(function(response){
                 
                 if(response.data !== 0)
                 {
@@ -752,7 +799,7 @@ netFloristModule.controller("OrderController",function($scope,$http){
          $scope.removeOrder = function(orderNo)
          {
             console.log(orderNo);   
-              $http.delete('/removewOrderStatus/' + orderNo + '').then(function(response){
+              $http.delete('/orders/deleteOrders/' + orderNo + '').then(function(response){
                 
                 if(response.data !== 0)
                 {
@@ -767,14 +814,13 @@ netFloristModule.controller("OrderController",function($scope,$http){
          $scope.trackOrder = function (orderNo)
          {
             if(orderNo !== undefined){ 
-                $http.get('/viewbyOrderNo/' + orderNo + '').then(function(response){
+                $http.get('/orders/findByOrderNo/' + orderNo + '').then(function(response){
                   
                    $scope.ordersIn = response.data;
                  
                  });
         
-                 
-                $http.get('/viewdelivary/' + orderNo + '').then(function(response){
+                $http.get('/address/findAddressByOrderNo/' + orderNo + '').then(function(response){
                   
                    $scope.delivary = response.data;
                  });

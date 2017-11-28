@@ -47,7 +47,7 @@
      
   
             <ul>
-               <li><a href="#home">Admin Panel: {{users.fname}} {{users.lname}}</a></li>
+               <li><a href="#home">Administrator Panel: {{user.name}} {{user.surname}}</a></li>
                <li><a href="./addProduct.html">Add Product</a></li>
                <li><a href="./updateProduct.html">Update Product</a></li>
                 <li><a href="./addCategory.html">Add Category</a></li>
@@ -72,7 +72,7 @@
                    <td>{{product.price}}</td>
                    <td><span><img ng-src="{{product.image}}" width="100" height="50" alt=""/></span></td>
                    <td>
-                       <input type="button" id="delete" value="Delete"  class="delete" ng-click="removeProduct(product.name)"/>
+                       <input type="button" id="delete" value="Delete"  class="delete" ng-click="deleteProduct(product.productID)"/>
                    </td>
                </tr>
            </table>

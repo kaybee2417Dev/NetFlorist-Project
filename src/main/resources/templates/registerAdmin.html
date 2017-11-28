@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html lang="en-US" ng-app="NetFloristApp">
     <head>
-        <title>Add-Register</title>
+        <title>Administrator-Register</title>
         <script src="./js/angular.js"></script>
         <script type="text/javascript" src="./js/angular-route.min.js"></script>
 	<script src="./js/app.js"></script>
@@ -19,7 +19,7 @@ and open the template in the editor.
            
             <div class="container" >
                <ul>
-                    <li><a href="#home">Admin Panel{{users.fname}} {{users.lname}}</a></li>
+                    <li><a href="#home">Admin Panel{{user.name}} {{user.surname}}</a></li>
                     <li><a href="./adminHomePage.html">Admin Home</a></li>
                     <li><a href="./addProduct.html">Add Product</a></li>
                     <li><a href="./updateProduct.html">Update Product</a></li>
@@ -61,7 +61,7 @@ and open the template in the editor.
                                 </p>
                                 
                                 <p class="signin button"> 
-                                    <input type="submit" ng-click="registerCustomer('1')" value="Sign up"/> 
+                                    <input type="submit" ng-click="registerUsers('1')" value="Sign up"/> 
 				</p>
                      </form>
                </div>  

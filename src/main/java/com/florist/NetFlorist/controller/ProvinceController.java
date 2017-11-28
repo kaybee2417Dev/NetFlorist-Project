@@ -6,7 +6,6 @@
 package com.florist.NetFlorist.controller;
 
 import com.florist.NetFlorist.services.ProvinceService;
-import java.io.Serializable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,16 +17,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author User
  */
 @Controller
+@RequestMapping(value = "/province")
 public class ProvinceController {
     
     @Autowired
-    private ProvinceService pService;
+    private ProvinceService provinceService;
     
     //"""""""""""""""""""""""""""""""""View Provinces""""""""""""""""""""""""""""""
-    @RequestMapping(value="/viewPrivences", method = RequestMethod.GET)
+    @RequestMapping(value="/findAllProvinces", method = RequestMethod.GET)
     @ResponseBody
-    public Object getAllProvice()
+    public Object findAllProvinces()
     {
-        return pService.getAllProvice();
+        return provinceService.findAllProvinces();
     }
 }

@@ -14,73 +14,76 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author User
  */
 @Entity
+@Table(name = "users")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c")
-    , @NamedQuery(name = "Customer.findByCID", query = "SELECT c FROM Customer c WHERE c.cID = :cID")
-    , @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email")
-    , @NamedQuery(name = "Customer.findByPassword", query = "SELECT c FROM Customer c WHERE c.password = :password")
-    , @NamedQuery(name = "Customer.findByName", query = "SELECT c FROM Customer c WHERE c.name = :name")
-    , @NamedQuery(name = "Customer.findBySurname", query = "SELECT c FROM Customer c WHERE c.surname = :surname")
-    , @NamedQuery(name = "Customer.findByEmailAndPassword", query = "SELECT c FROM Customer c WHERE c.email = :email AND c.password = :password")
-    , @NamedQuery(name = "Customer.findByMobile", query = "SELECT c FROM Customer c WHERE c.mobile = :mobile")})
-public class Customer implements Serializable {
+    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u")
+    , @NamedQuery(name = "Users.findByUserID", query = "SELECT u FROM Users u WHERE u.userID = :userID")
+    , @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email")
+    , @NamedQuery(name = "Users.findByRole", query = "SELECT u FROM Users u WHERE u.role = :role")
+    , @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
+    , @NamedQuery(name = "Users.findByName", query = "SELECT u FROM Users u WHERE u.name = :name")
+    , @NamedQuery(name = "Users.findBySurname", query = "SELECT u FROM Users u WHERE u.surname = :surname")
+    , @NamedQuery(name = "Users.findByMobile", query = "SELECT u FROM Users u WHERE u.mobile = :mobile")})
+public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "cID")
-    private Integer cID;
-    @Size(min = 1, max = 30)
+   
+    @Column(name = "userID")
+    private Integer userID;
+    
     @Column(name = "email")
     private String email;
-    @Size(min = 1, max = 10)
     @Column(name = "role")
     private String role;
-    @Size(min = 1, max = 30)
+    
     @Column(name = "password")
     private String password;
-    @Size(min = 1, max = 50)
+    
     @Column(name = "name")
     private String name;
-    @Size(min = 1, max = 50)
+    
     @Column(name = "surname")
     private String surname;
-    @Size(min = 1, max = 10)
+  
     @Column(name = "mobile")
     private String mobile;
 
-    public Customer() {
+    public Users() {
     }
 
-    public Customer(Integer cID) {
-        this.cID = cID;
+    public Users(Integer userID) {
+        this.userID = userID;
     }
 
-    public Customer(Integer cID, String email, String role, String password, String name, String surname, String mobile) {
-        this.cID = cID;
+    public Users(Integer userID, String email, String role, String password, String name, String surname, String mobile) {
+        this.userID = userID;
         this.email = email;
         this.role = role;
         this.password = password;
         this.name = name;
-        this.surname = name;
+        this.surname = surname;
         this.mobile = mobile;
     }
 
-    public Integer getCID() {
-        return cID;
+    public Integer getUserID() {
+        return userID;
     }
 
-    public void setCID(Integer cID) {
-        this.cID = cID;
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 
     public String getEmail() {
@@ -107,28 +110,28 @@ public class Customer implements Serializable {
         this.password = password;
     }
 
-    public String getFName() {
+    public String getName() {
         return name;
     }
 
-    public void setFName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getLName() {
+    public String getSurname() {
         return surname;
     }
 
-    public void setLName(String surname) {
+    public void setSurname(String surname) {
         this.surname = surname;
     }
 
-    public String getMobileNo() {
+    public String getMobile() {
         return mobile;
     }
 
-    public void setMobileNo(String mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
-    
+
 }

@@ -35,12 +35,8 @@ public class Provinces implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "provinceID")
     private Integer provinceID;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 15)
     @Column(name = "name")
     private String name;
 
@@ -72,29 +68,5 @@ public class Provinces implements Serializable {
         this.name = name;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (provinceID != null ? provinceID.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Provinces)) {
-            return false;
-        }
-        Provinces other = (Provinces) object;
-        if ((this.provinceID == null && other.provinceID != null) || (this.provinceID != null && !this.provinceID.equals(other.provinceID))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.florist.NetFlorist.model.Provinces[ provinceID=" + provinceID + " ]";
-    }
     
 }

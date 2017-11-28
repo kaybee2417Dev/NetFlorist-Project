@@ -5,7 +5,7 @@
  */
 package com.florist.NetFlorist.repositories;
 
-import com.florist.NetFlorist.model.Delivary;
+import com.florist.NetFlorist.model.Address;
 import java.util.ArrayList;
 import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
@@ -19,13 +19,12 @@ import org.springframework.data.rest.webmvc.RepositoryRestController;
  * @author User
  */
 @RepositoryRestController
-public interface DelivaryRepository extends CrudRepository<Delivary, Integer>{
-   
-    @Query("SELECT d FROM Delivary d WHERE d.orderno = :orderno")
-    public ArrayList<Delivary> viewByOrderNo(@Param("orderno") int orderNo);
+public interface AddressRepository extends CrudRepository<Address, Integer>{
+    @Query("SELECT a FROM Address a WHERE a.orderno = :orderno")
+    public ArrayList<Address> findAddressByOrderNo(@Param("orderno") int orderNo);
     
     @Transactional
     @Modifying
-    @Query("Delete FROM Delivary d WHERE d.orderno = :orderno")
-    public int deleteDelivaryInformation(@Param("orderno") int orderNo);
+    @Query("Delete FROM Address a WHERE a.orderno = :orderno")
+    public int deleteAddress(@Param("orderno") int orderNo);
 }

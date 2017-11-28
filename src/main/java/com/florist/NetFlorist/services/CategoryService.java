@@ -17,21 +17,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class CategoryService{
     @Autowired
-    private CatagoryRepository catRep;
+    private CatagoryRepository categoryRepository;
     
-    public Object viewAllCategories()
+    public Object findAllCategories()
     {
-        return catRep.findAll();
+        return categoryRepository.findAll();
     }
     
     public Category saveCategory(Category category)
     {
-        return catRep.save(category);
+        return categoryRepository.save(category);
     }
     
-    public int removeCategory(String name)
+    public int deleteCategory(String name)
     {
-        return catRep.deleteCategory(name);
+        return categoryRepository.deleteCategory(name);
     }
-    
 }

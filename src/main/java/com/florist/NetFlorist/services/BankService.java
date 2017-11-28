@@ -7,7 +7,6 @@ package com.florist.NetFlorist.services;
 
 import com.florist.NetFlorist.model.Bank;
 import com.florist.NetFlorist.repositories.BankRepository;
-import java.io.Serializable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +20,13 @@ public class BankService{
     @Autowired
     private BankRepository bankRepository;
     
-    public Bank searchAccount(int cardNo, String cardHolder, String bankName)
+    public Bank findBankAccount(int cardNo, String cardHolder, String bankName)
     {
-        return bankRepository.searchAccount(cardNo, cardHolder, bankName);
+        return bankRepository.findBankAccount(cardNo, cardHolder, bankName);
     }
     
     public int updateBankBalance(int cardNo, double balance)
     {
-        return bankRepository.updateAccountBalance(cardNo, balance);
+        return bankRepository.updateBankBalance(cardNo, balance);
     }
 }

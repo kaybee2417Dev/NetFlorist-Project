@@ -21,11 +21,11 @@ import org.springframework.data.rest.webmvc.RepositoryRestController;
 public interface BankRepository extends CrudRepository<Bank, Integer>{
   
     @Query("SELECT b FROM Bank b WHERE b.cardno = :cardno AND b.cardholder = :cardholder AND b.bankname = :bankname")
-    public Bank searchAccount(@Param("cardno") int cardNo, @Param("cardholder") String cardHolder, @Param("bankname") String bankName);
+    public Bank findBankAccount(@Param("cardno") int cardNo, @Param("cardholder") String cardHolder, @Param("bankname") String bankName);
     
     @Transactional
     @Modifying
     @Query("Update Bank b SET b.balance = :balance WHERE b.cardno = :cardno")
-    public int updateAccountBalance(@Param("cardno") int cardNo, @Param("balance") double balance);
+    public int updateBankBalance(@Param("cardno") int cardNo, @Param("balance") double balance);
 
 }

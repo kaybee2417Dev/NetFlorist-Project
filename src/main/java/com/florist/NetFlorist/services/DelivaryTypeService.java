@@ -17,10 +17,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class DelivaryTypeService {
     @Autowired
-    private DelivaryTypeRepository delivaryTypeRep;
+    private DelivaryTypeRepository delivaryTypeRepepository;
     
-    public Object getDelivaryType()
+    public Object findAllDeliveryTypes()
     {
-        return delivaryTypeRep.findAll();
+        return delivaryTypeRepepository.findAll();
     }
 }

@@ -17,17 +17,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author User
  */
 @Controller
+@RequestMapping(value = "/delivaryType")
 public class DelivaryTypeController {
     
     @Autowired
-    private DelivaryTypeService dService;
+    private DelivaryTypeService deliveryTypeService;
     
      //=======================Get Province ==========================
-    @RequestMapping(value="/viewDelivaryType", method = RequestMethod.GET)
+    @RequestMapping(value="/findAllDelivaryTypes", method = RequestMethod.GET)
     @ResponseBody
-    public Object getAllProvice()
+    public Object findAllDeliveryTypes()
     {
-        return dService.getDelivaryType();
+        return deliveryTypeService.findAllDeliveryTypes();
     }
     
 }

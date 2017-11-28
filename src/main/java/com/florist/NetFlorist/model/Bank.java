@@ -98,29 +98,4 @@ public class Bank implements Serializable {
         this.balance = balance;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (bankID != null ? bankID.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Bank)) {
-            return false;
-        }
-        Bank other = (Bank) object;
-        if ((this.bankID == null && other.bankID != null) || (this.bankID != null && !this.bankID.equals(other.bankID))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.florist.NetFlorist.model.Bank[ bankID=" + bankID + " ]";
-    }
-    
 }

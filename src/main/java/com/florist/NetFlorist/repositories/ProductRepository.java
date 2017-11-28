@@ -23,15 +23,15 @@ public interface ProductRepository  extends CrudRepository<Product, Integer>{
     
      @Transactional
      @Modifying
-     @Query("Delete FROM Product p WHERE p.name = :name")
-     public int deleteProduct(@Param("name") String name);
+     @Query("Delete FROM Product p WHERE p.productID = :productID")
+     public int deleteProduct(@Param("productID") int productId);
      
      @Transactional
      @Modifying
-     @Query("Update Product p SET p.name =:name, p.category =:category, p.price =:price WHERE p.pID = :pID")
-     public int upddateProduct(@Param("pID") int pid, @Param("name") String name, @Param("category") String category, @Param("price") double price);
+     @Query("Update Product p SET p.name =:name, p.category =:category, p.price =:price WHERE p.productID = :productID")
+     public int updateProduct(@Param("productID") int pid, @Param("name") String name, @Param("category") String category, @Param("price") double price);
      
      @Query("SELECT p FROM Product p WHERE p.category = :category")
-     public ArrayList<Product> viewByCategory(@Param("category") String category);
+     public ArrayList<Product> findProductByCategory(@Param("category") String category);
      
 }

@@ -5,6 +5,7 @@
  */
 package com.florist.NetFlorist.controller;
 
+import com.florist.NetFlorist.exceptions.DataNotFoundException;
 import com.florist.NetFlorist.model.Bank;
 import com.florist.NetFlorist.services.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,29 +20,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author User
  */
 @Controller
+@RequestMapping(value = "/bank")
 public class BankController{
     
     @Autowired
     private BankService bankService;
     
-  //######################## Retrieve bank details  #####################################
-    @RequestMapping(value = "/searchAccount/{cardNo}/{cardHolder}/{bankName}", method = RequestMethod.GET)
+  //######################## find bank account details  #####################################
+    @RequestMapping(value = "/findBankAccount/{cardNo}/{cardHolder}/{bankName}", method = RequestMethod.GET)
     @ResponseBody
     public Bank findBankAccount(@PathVariable int cardNo, @PathVariable String cardHolder, @PathVariable String bankName)
     {
-        Bank bank = new Bank();
-        try
+        Bank bank = bankService.findBankAccount(cardNo, cardHolder, bankName);
+        
+        if(bank == null)
         {
-            bank = bankService.searchAccount(cardNo, cardHolder, bankName);
-            if(bank != null)
-            {
-                System.out.println("Account Authorized");
-            }else{
-                 System.out.println("Account Not Authorized");
-            }
-        }catch(Exception ex)
-        {
-            System.out.println("Error Message: " + ex.getMessage());
+            throw new DataNotFoundException("Invalid banking details");
         }
         return bank;
     }
@@ -49,7 +43,7 @@ public class BankController{
     
      
    //######################## Update Bank balance after deduction#####################################
-    @RequestMapping(value = "/updateAccount/{cardNo}/{balance}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/updateBankBalance/{cardNo}/{balance}", method = RequestMethod.PUT)
     @ResponseBody
     public int updateBankBalance(@PathVariable int cardNo, @PathVariable double balance)
     {

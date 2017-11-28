@@ -6,7 +6,6 @@
 package com.florist.NetFlorist.services;
 
 import com.florist.NetFlorist.repositories.ProvinceRepositiory;
-import java.io.Serializable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +16,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProvinceService{
     @Autowired
-    private ProvinceRepositiory provinceRep;
-    public Object getAllProvice()
+    private ProvinceRepositiory provinceRepository;
+    public Object findAllProvinces()
     {
-        return provinceRep.findAll();
+        return provinceRepository.findAll();
     }
     
 }

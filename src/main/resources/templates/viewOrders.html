@@ -74,9 +74,9 @@
                     <td>{{order.name}}</td>
                    <td> {{order.orderstatus}}</td>
                    <td>R {{order.orderamount}}</td>
-                   <td>{{order.date}}</td>
+                   <td>{{order.orderdate}}</td>
                    <td>{{order.delivarydate}}</td>
-                   <td>{{order.cID}}</td>
+                   <td>{{order.userID}}</td>
                    <td >      
                        <p> 
                             <label for="pCat" class="pCat"  > Update Order Status:</label>
@@ -86,7 +86,7 @@
                         </p>  
                    </td>
                    <td>
-                       <input type="button" id="update" value="Update Order Status"  class="update" ng-click="updateOrder(order.orderID,status)"/>
+                       <input type="button" id="update" value="Update Order Status"  class="update" ng-click="updateOrderStatus(order.orderID,status)"/>
                        <input type="button" id="remove" value="Remove Order"  class="remove" ng-click="removeOrder(order.orderno)"/>
                     </td>
                 </tr>

@@ -5,9 +5,8 @@
  */
 package com.florist.NetFlorist.services;
 
-import com.florist.NetFlorist.model.Delivary;
-import com.florist.NetFlorist.repositories.DelivaryRepository;
-import java.io.Serializable;
+import com.florist.NetFlorist.model.Address;
+import com.florist.NetFlorist.repositories.AddressRepository;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,22 +16,23 @@ import org.springframework.stereotype.Service;
  * @author User
  */
 @Service
-public class DelivaryService{
+public class AddressService {
+  
     @Autowired
-    private DelivaryRepository delivaryRepository;
+    private AddressRepository addressRepository;
     
-    public Delivary saveDelivary(Delivary delivary)
+     public Address saveAddress(Address address)
     {
-        return delivaryRepository.save(delivary);
+        return addressRepository.save(address);
     }  
     
-    public ArrayList<Delivary> viewByOrderNo(int orderNo)
+    public ArrayList<Address> findAddressByOrderNo(int orderNo)
     {
-        return delivaryRepository.viewByOrderNo(orderNo);
+        return addressRepository.findAddressByOrderNo(orderNo);
     }
     
     public int deleteDelivary(int orderNo)
     {
-        return delivaryRepository.deleteDelivaryInformation(orderNo);
+        return addressRepository.deleteAddress(orderNo);
     }
 }

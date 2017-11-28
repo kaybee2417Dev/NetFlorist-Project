@@ -4,7 +4,6 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>model.Tblproduct</class>
     <class>model.Tbluser</class>
-    <class>com.florist.NetFlorist.model.Customer</class>
     <class>com.florist.NetFlorist.model.Product</class>
     <class>com.florist.NetFlorist.model.Category</class>
     <class>com.florist.NetFlorist.model.Delivary</class>
@@ -14,6 +13,10 @@
     <class>com.florist.NetFlorist.model.Bank</class>
     <class>com.florist.NetFlorist.model.Orderstatus</class>
     <class>com.florist.NetFlorist.model.Orderinformation</class>
+    <class>com.florist.NetFlorist.model.Users</class>
+    <class>com.florist.NetFlorist.model.Address</class>
+    <class>com.florist.NetFlorist.model.Orders</class>
+    <class>com.florist.NetFlorist.model.Addresstypes</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/NetFloristDB?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="kaybee"/>

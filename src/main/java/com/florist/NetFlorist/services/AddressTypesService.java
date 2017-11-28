@@ -5,7 +5,7 @@
  */
 package com.florist.NetFlorist.services;
 
-import com.florist.NetFlorist.repositories.OrderStatusRepository;
+import com.florist.NetFlorist.repositories.AddressTypesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +14,12 @@ import org.springframework.stereotype.Service;
  * @author User
  */
 @Service
-public class OrderStatusService {
+public class AddressTypesService {
     @Autowired
-    private OrderStatusRepository orderStatusRepository;
+    private AddressTypesRepository addressTypeRepepository;
     
-    public Object findAllOrderStatus()
+    public Object findAllAddressTypes()
     {
-        return orderStatusRepository.findAll();
+        return addressTypeRepepository.findAll();
     }
-  
 }

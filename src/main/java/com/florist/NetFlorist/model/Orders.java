@@ -6,82 +6,108 @@
 package com.florist.NetFlorist.model;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import javax.xml.bind.annotation.XmlRootElement;
-import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 
 /**
  *
  * @author User
  */
 @Entity
-@Table(name = "orderinformation")
+@Table(name = "orders")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Orderinformation.findAll", query = "SELECT o FROM Orderinformation o")
-    , @NamedQuery(name = "Orderinformation.findByOrderID", query = "SELECT o FROM Orderinformation o WHERE o.orderID = :orderID")
-    , @NamedQuery(name = "Orderinformation.findByOrderstatus", query = "SELECT o FROM Orderinformation o WHERE o.orderstatus = :orderstatus")})
-public class Orderinformation implements Serializable {
+    @NamedQuery(name = "Orders.findAll", query = "SELECT o FROM Orders o")
+    , @NamedQuery(name = "Orders.findByOrderID", query = "SELECT o FROM Orders o WHERE o.orderID = :orderID")
+    , @NamedQuery(name = "Orders.findByOrderno", query = "SELECT o FROM Orders o WHERE o.orderno = :orderno")
+    , @NamedQuery(name = "Orders.findByOrderstatus", query = "SELECT o FROM Orders o WHERE o.orderstatus = :orderstatus")
+    , @NamedQuery(name = "Orders.findByOrderdate", query = "SELECT o FROM Orders o WHERE o.orderdate = :orderdate")
+    , @NamedQuery(name = "Orders.findByUserID", query = "SELECT o FROM Orders o WHERE o.userID = :userID")
+    , @NamedQuery(name = "Orders.findByOrderamount", query = "SELECT o FROM Orders o WHERE o.orderamount = :orderamount")
+    , @NamedQuery(name = "Orders.findByDelivarydate", query = "SELECT o FROM Orders o WHERE o.delivarydate = :delivarydate")
+    , @NamedQuery(name = "Orders.findByName", query = "SELECT o FROM Orders o WHERE o.name = :name")
+    , @NamedQuery(name = "Orders.findByCategory", query = "SELECT o FROM Orders o WHERE o.category = :category")
+    , @NamedQuery(name = "Orders.findByQuantity", query = "SELECT o FROM Orders o WHERE o.quantity = :quantity")
+    , @NamedQuery(name = "Orders.findByProductID", query = "SELECT o FROM Orders o WHERE o.productID = :productID")
+    , @NamedQuery(name = "Orders.findByPrice", query = "SELECT o FROM Orders o WHERE o.price = :price")})
+public class Orders implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "orderID")
     private int orderID;
-    @Column(name = "cID")
-    private int cID;
-    @Column(name="orderno")
+
+    @Column(name = "orderno")
     private int orderno;
+    
     @Column(name = "orderstatus")
     private String orderstatus;
+  
+    @Column(name = "orderdate")
+    @Temporal(TemporalType.DATE)
+    private Date orderdate = new Date();
+    
+    @Column(name = "userID")
+    private int userID;
+    
     @Column(name = "orderamount")
     private double orderamount;
-    @Column(name = "orderdate")
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date date = new Date();
+   
     @Column(name = "delivarydate")
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(TemporalType.DATE)
     private Date delivarydate;
+ 
+  
     @Column(name = "name")
     private String name;
+    
     @Column(name = "category")
     private String category;
+  
     @Column(name = "quantity")
     private int quantity;
-    @Column(name = "pid")
-    private int pid;
+    
+    @Column(name = "productID")
+    private int productID;
+    
     @Column(name = "price")
     private double price;
+   
     @Column(name = "image")
     private String image;
 
-    public Orderinformation(int orderID, int cID, int orderno, String orderstatus, double orderamount, Date delivarydate, String name, String category, int quantity, int pid, double price, String image) {
+    public Orders() {
+    }
+
+
+    public Orders(int orderID, int orderno, String orderstatus, Date orderdate, int userID, double orderamount, Date delivarydate, String name, String category, int quantity, int productID, double price, String image) {
         this.orderID = orderID;
-        this.cID = cID;
         this.orderno = orderno;
         this.orderstatus = orderstatus;
+        this.orderdate = orderdate;
+        this.userID = userID;
         this.orderamount = orderamount;
-         this.delivarydate = delivarydate;
+        this.delivarydate = delivarydate;
         this.name = name;
         this.category = category;
         this.quantity = quantity;
-        this.pid = pid;
+        this.productID = productID;
         this.price = price;
         this.image = image;
-    }
-
-    public Orderinformation() {
     }
 
     public int getOrderID() {
@@ -90,14 +116,6 @@ public class Orderinformation implements Serializable {
 
     public void setOrderID(int orderID) {
         this.orderID = orderID;
-    }
-
-    public int getcID() {
-        return cID;
-    }
-
-    public void setcID(int cID) {
-        this.cID = cID;
     }
 
     public int getOrderno() {
@@ -116,20 +134,28 @@ public class Orderinformation implements Serializable {
         this.orderstatus = orderstatus;
     }
 
+    public Date getOrderdate() {
+        return orderdate;
+    }
+
+    public void setOrderdate(Date orderdate) {
+        this.orderdate = orderdate;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
     public double getOrderamount() {
         return orderamount;
     }
 
     public void setOrderamount(double orderamount) {
         this.orderamount = orderamount;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public Date getDelivarydate() {
@@ -164,12 +190,12 @@ public class Orderinformation implements Serializable {
         this.quantity = quantity;
     }
 
-    public int getProduct_id() {
-        return pid;
+    public int getProductID() {
+        return productID;
     }
 
-    public void setProduct_id(int pid) {
-        this.pid = pid;
+    public void setProductID(int productID) {
+        this.productID = productID;
     }
 
     public double getPrice() {

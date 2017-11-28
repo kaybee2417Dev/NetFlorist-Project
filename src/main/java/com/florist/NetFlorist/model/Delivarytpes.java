@@ -35,12 +35,9 @@ public class Delivarytpes implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "delivarytypeID")
     private Integer delivarytypeID;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 15)
+    
     @Column(name = "name")
     private String name;
 

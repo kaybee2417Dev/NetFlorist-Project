@@ -5,11 +5,9 @@
  */
 package com.florist.NetFlorist.controller;
 
-import com.florist.NetFlorist.exceptions.DataNotFoundException;
 import com.florist.NetFlorist.model.Product;
 import com.florist.NetFlorist.services.ProductService;
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,73 +23,73 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
+@RequestMapping(value = "/product")
 public class ProductController implements Serializable  {
     private static final long serialVersionUID = 1L;
     
     @Autowired
     private ProductService productService;
     
-     //=============================Finf All prodicts==========================
-    @RequestMapping(value = "/viewproduct" , method = RequestMethod.GET)
+     //=============================Find All products==========================
+    @RequestMapping(value = "/findAllProducts" , method = RequestMethod.GET)
     @ResponseBody
-    public Object retrieveAllProduct()
+    public Object findAllProduct()
     {
-        return productService.viewAllProduct();
+        return productService.findAllProduct();
     }
     
-    //====================find product based on id==========================
-    @RequestMapping(value = "/findProduct/{pid}" , method = RequestMethod.GET)
+    //====================find product based on product Id==========================
+    @RequestMapping(value = "/findProductById/{productId}" , method = RequestMethod.GET)
     @ResponseBody
-    public Product retrieveById(@PathVariable int pid)
+    public Product findProductByProductID(@PathVariable int productId)
     {
-        return productService.getProductsById(pid);
+        return productService.findProductByProductId(productId);
     }
     
     
     //============================Save Products==========================
-    @RequestMapping(value = "/saveproduct" , method = RequestMethod.POST)
+    @RequestMapping(value = "/saveProduct" , method = RequestMethod.POST)
     @ResponseBody
-    public Product saveProducts(@RequestBody Product product) throws SQLException
+    public Product saveProduct(@RequestBody Product product) throws Exception
     {
-        Product prod = new Product();
+        Product product1 = new Product();
         try{
-            prod = productService.saveProduct(product);
+            product1 = productService.saveProduct(product);
         }catch(Exception ex)
         {
-            System.out.println("Erro Side");
-            throw new SQLException(ex.getMessage());
+           throw new Exception(ex.getMessage());
         }
-       return prod;  
+       return product1;  
     }
     
-     //============Remove Product based on name==========================
-    @RequestMapping(value = "/deleteproduct/{name}" , method = RequestMethod.DELETE)
+     //============Remove Product based on product ID==========================
+    @RequestMapping(value = "/deleteProduct/{productId}" , method = RequestMethod.DELETE)
     @ResponseBody
-    public int removeProduct(@PathVariable String name)
+    public int deleteProduct(@PathVariable int productId)
     {
         int deleted = 0;
-            deleted = productService.deleteProduct(name);
+        deleted = productService.deleteProduct(productId);
         return deleted;
     }
      
-     //===================Update product==========================
-    @RequestMapping(value = "/update/{id}/{name}/{category}/{price}" , method = RequestMethod.PUT)
+    //===================Update product==========================
+    @RequestMapping(value = "/updateProduct/{productId}/{name}/{category}/{price}" , method = RequestMethod.PUT)
     @ResponseBody
-    public int removeProduct(@PathVariable int id, @PathVariable String name, @PathVariable String category, @PathVariable double price )
+    public int updateProduct(@PathVariable int productId, @PathVariable String name, @PathVariable String category, @PathVariable double price )
     {
         int updated = 0;
         
-            updated = productService.updateProduct(id, name, category, price);
+        updated = productService.updateProduct(productId, name, category, price);
         
         return updated;
     }
     
     //=========================Get Product based on Category name==========================
-    @RequestMapping(value = "/viewByCategory/{category}" , method = RequestMethod.GET)
+    @RequestMapping(value = "/findProductByCategory/{category}" , method = RequestMethod.GET)
     @ResponseBody
-    public ArrayList<Product> retrieveAllProduct(@PathVariable String category)
+    public ArrayList<Product> retrieveProductsByCategory(@PathVariable String category)
     {
-        ArrayList<Product> listPro = productService.viewCategory(category);
+        ArrayList<Product> listPro = productService.findProductByCategory(category);
     
         return listPro;
     }

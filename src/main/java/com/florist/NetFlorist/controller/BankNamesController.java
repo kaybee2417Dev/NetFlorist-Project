@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author User
  */
 @Controller
+@RequestMapping(value = "/bankNames")
 public class BankNamesController {
     
     @Autowired
@@ -24,10 +25,10 @@ public class BankNamesController {
     
     
     //==================find bank names=================
-    @RequestMapping(value = "/viewBankNames", method = RequestMethod.GET)
+    @RequestMapping(value = "/findAllBankNames", method = RequestMethod.GET)
     @ResponseBody
-    public Object viewAllBankNames()
+    public Object findAllBankNames()
     {
-        return bankNameService.getBankNames();
+        return bankNameService.findAllBankNames();
     }
 }

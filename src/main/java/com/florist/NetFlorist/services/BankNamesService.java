@@ -16,10 +16,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class BankNamesService{
     @Autowired
-    private BankNamesRepository bankNameRep;
+    private BankNamesRepository bankNameRepository;
     
-    public Object getBankNames()
+    public Object findAllBankNames()
     {
-        return bankNameRep.findAll();
+        return bankNameRepository.findAll();
     }
 }

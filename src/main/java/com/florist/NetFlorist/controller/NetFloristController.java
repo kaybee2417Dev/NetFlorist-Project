@@ -36,6 +36,19 @@ public class NetFloristController {
         return "register";
     }
     
+    @RequestMapping(value = "/forgotPassword", method = RequestMethod.GET)
+    public String forgotPassword()
+    {
+        return "forgotPassword";
+    }
+    
+    @RequestMapping(value = "/newPassword", method = RequestMethod.GET)
+    public String newPassword()
+    {
+        return "newPassword";
+    }
+    
+    
     @RequestMapping(value = "/adminHomePage", method = RequestMethod.GET)
     public String adminPage()
     {
@@ -72,7 +85,7 @@ public class NetFloristController {
         return "viewOrders";
     }
     
-    //##############################Customer Site#########################
+    //##############################Customer Site Pages#########################
     @RequestMapping(value = "/customerHomePage", method = RequestMethod.GET)
     public String customerHomePage()
     {
