@@ -75,7 +75,7 @@ netFloristModule.controller("RegisterController",['$scope','$http',function($sco
                             {
                                // console.log(user);
                                 $http.post('/user/register',user).then(function(response) {
-                                        console.log(response.data);
+                                        
                                         if(response.data.userID !== 0)
                                         {
                                            alert("User Registered...");
@@ -421,10 +421,8 @@ netFloristModule.controller("CustomerController", function ($scope, $http){
    
       $scope.searchCategory = function(evnt, catName){
              $http.get('/category/findAllCategories/' + catName + '').then(function(response){
-		
                 $scope.category = response.data;
-                
-                var i, tabcontent, tablinks;
+                 var i, tabcontent, tablinks;
                 tabcontent = document.getElementsByClassName("tabcontent");
                 for (i = 0; i < tabcontent.length; i++) {
                     tabcontent[i].style.display = "none";
@@ -576,7 +574,7 @@ netFloristModule.controller("CustomerController", function ($scope, $http){
                         $http.get('/bank/findBankAccount/' + cardNo + '/'+ cardHolder + '/' + bankName).then(function(response){
                             
                             $scope.banking = response.data;
-                            console.log( $scope.banking);
+                          
                             if($scope.banking.bankID !== undefined)
                             {
                                 var bankAmount = $scope.banking.balance;

@@ -8,45 +8,16 @@
         <script src="./js/app.js"></script>
         <link rel="stylesheet" type="text/css" href="./css/demo.css" />
         <link rel="stylesheet" type="text/css" href="./css/menus.css" />
-        <!--link rel="stylesheet" type="text/css" href="./css/style3.css" />-->
         <link rel="stylesheet" type="text/css" href="./css/tables.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>       
 
-    <!--<script>
-           function myFunction() {
-             // Declare variables 
-            // var input, filter, table, td;
-           var  input = document.getElementById("myInput");
-            var filter = input.value.toUpperCase();
-             var table = document.getElementById("tbl");
-            var tr = table.getElementsByTagName("tr");
-
-             // Loop through all table rows, and hide those who don't match the search query
-             for (var i = 0; i < tr.length; i++) 
-             {
-              var td = tr[i].getElementsByTagName("td")[0];
-               if (td) {
-                 if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                   tr[i].style.display = "";
-                 } else {
-                   tr[i].style.display = "none";
-                 }
-               } 
-             }
-           };
-
-   </script>    */ -->    
-
-
     </head>
 
     <body ng-controller="ProductController">
     
-     
-  
-            <ul>
+       <ul>
                <li><a href="#home">Administrator Panel: {{user.name}} {{user.surname}}</a></li>
                <li><a href="./addProduct.html">Add Product</a></li>
                <li><a href="./updateProduct.html">Update Product</a></li>
@@ -57,7 +28,7 @@
             </ul>
   
             
-              <input type="text" id="myInput" onkeyup="" placeholder="Search For Products.." style="width:80%;  padding: 12px 20px;  margin: 8px 0;box-sizing: border-box;}"/>
+        <input type="text" ng-model="searchText.name" onkeyup="" placeholder="Search For Products.." style="width:80%;  padding: 12px 20px;  margin: 8px 0;box-sizing: border-box;}"/>
               <table id="tbl">
                <tr>
                   <th>Product Name</th>
@@ -66,7 +37,7 @@
                    <th>Product Image</th>
                </tr>
 
-               <tr ng-repeat="product in products" >
+               <tr ng-repeat="product in products | filter:searchText" >
                    <td>{{product.name}}</td>
                    <td>{{product.category}}</td>
                    <td>R:{{product.price}}</td>
