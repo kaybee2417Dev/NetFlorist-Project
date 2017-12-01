@@ -140,8 +140,7 @@ netFloristModule.controller("LoginController",function($scope,$http){
             {
                alert("Enter Username...");
             }
-            
-       };      
+         };      
 });
 netFloristModule.controller("ForgotPasswordController",function($scope,$http){
     $http.defaults.headers.post["Content-Type"] = "application/json";  

@@ -46,8 +46,8 @@ public class AddressController {
     @ResponseBody
     public ArrayList<Address> viewByOrderNo(@PathVariable int orderno)
     {
-        ArrayList<Address> addressList =  addressService.findAddressByOrderNo(orderno);
-        if(addressList == null)
+        ArrayList<Address> addressList = addressService.findAddressByOrderNo(orderno);
+        if(addressList.isEmpty())
         {
             throw new DataNotFoundException("Address Not Found...");
         }

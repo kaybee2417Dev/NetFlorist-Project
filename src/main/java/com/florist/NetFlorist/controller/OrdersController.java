@@ -100,11 +100,10 @@ public class OrdersController {
     {
         ArrayList<Orders> orderList = ordersServices.findOrdersByOrderNo(orderno);
         
-        if(orderList == null)
+        if(orderList.isEmpty())
         {
             throw new DataNotFoundException("Orders Not Found...");
         }
-        
         return orderList;
     }
     

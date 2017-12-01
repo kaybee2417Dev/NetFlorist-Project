@@ -105,7 +105,7 @@ public class ProductController{
     {
         ArrayList<Product> listPro = productService.findProductByCategory(category);
     
-        if(listPro == null)
+        if(listPro.isEmpty())
         {
             throw new DataNotFoundException("Category name do not exist....");
         }
